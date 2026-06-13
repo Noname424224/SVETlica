@@ -1786,7 +1786,7 @@ function renderMyBookings() {
     const row = document.createElement('div'); row.className = 'mybooking-item';
     row.innerHTML = `<div class="mybooking-info"><strong>${b.name}</strong><span>${b.dateLabel}, ${b.time} · ${b.dur} мин</span></div>`;
     const btn = document.createElement('button'); btn.className = 'mybooking-cancel';
-    if (hoursLeft < 1) { btn.textContent = 'Менее 1 ч'; btn.disabled = true; }
+    if (hoursLeft < 2) { btn.textContent = 'Менее 2 ч'; btn.disabled = true; }
     else { btn.textContent = 'Отменить'; btn.addEventListener('click', () => cancelBooking(b.id)); }
     row.appendChild(btn); list.appendChild(row);
   });
@@ -1861,7 +1861,7 @@ function renderProfileBookings() {
     `;
     if (profileTab === 'upcoming') {
       const btn = document.createElement('button'); btn.className = 'profile-cancel-btn';
-      if (hoursLeft < 1) { btn.textContent = 'Менее 1 ч'; btn.disabled = true; }
+      if (hoursLeft < 2) { btn.textContent = 'Менее 2 ч'; btn.disabled = true; }
       else { btn.textContent = 'Отменить'; btn.addEventListener('click', () => { cancelBooking(b.id); renderProfileBookings(); updateProfileStats(); }); }
       row.appendChild(btn);
     }
