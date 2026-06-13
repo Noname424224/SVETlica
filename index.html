@@ -1210,6 +1210,18 @@ const ADMIN_CHATS_KEY = 'svetlica_admin_chats_v2';
 
 function getBookings() { try { return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || []; } catch(e){ return []; } }
 function saveBookings(arr) { localStorage.setItem(BOOKINGS_KEY, JSON.stringify(arr)); if (window._fsSet) window._fsSet('bookings', arr); }
+
+// Отмена записи на занятие
+function cancelBooking(id) {
+  const bookings = getBookings();
+  const updated = bookings.filter(b => b.id !== id);
+  if (updated.length === bookings.length) return; // не найдено
+  saveBookings(updated);
+  if (typeof refreshScheduleViews === 'function') refreshScheduleViews();
+  if (typeof renderMyBookings === 'function') renderMyBookings();
+  if (typeof updateProfileStats === 'function') updateProfileStats();
+  if (typeof renderProfileBookings === 'function') renderProfileBookings();
+}
 function getChats() { try { return JSON.parse(localStorage.getItem(CHAT_KEY)) || []; } catch(e){ return []; } }
 function saveChats(arr) { localStorage.setItem(CHAT_KEY, JSON.stringify(arr)); }
 function getAdminChats() { try { return JSON.parse(localStorage.getItem(ADMIN_CHATS_KEY)) || {}; } catch(e){ return {}; } }
