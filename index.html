@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СВЕТлица — студия йоги, танцев и творчества</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #FAF7F2; --beige: #EDE8DE; --beige2: #E2DCD0;
+  --gold: #C9970A; --gold-light: #F0C040; --gold-bg: #FBF3D8;
+  --dark: #1C1A18; --mid: #5C5650; --light-text: #9C9490; --white: #FFFFFF;
+  --black: #0E0D0C; --black2: #161412;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--dark); font-size: 16px; line-height: 1.6; overflow-x: hidden; position: relative; }
+::selection { background: var(--gold); color: white; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold-light), var(--gold)); border-radius: 100px; border: 2px solid var(--cream); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* AMBIENT GRADIENT ORBS */
+.ambient-orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(70px); mix-blend-mode: normal; }
+.ambient-orb-1 { top: -12%; right: -10%; width: 560px; height: 560px; background: radial-gradient(circle, rgba(240,192,64,0.55) 0%, transparent 70%); animation: orbFloat1 22s ease-in-out infinite; }
+.ambient-orb-2 { top: 35%; left: -14%; width: 480px; height: 480px; background: radial-gradient(circle, rgba(201,151,10,0.4) 0%, transparent 70%); animation: orbFloat2 28s ease-in-out infinite; }
+.ambient-orb-3 { bottom: -10%; right: 10%; width: 420px; height: 420px; background: radial-gradient(circle, rgba(240,192,64,0.35) 0%, transparent 70%); animation: orbFloat3 34s ease-in-out infinite; }
+@keyframes orbFloat1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-90px,110px) scale(1.2); } 66% { transform: translate(40px,40px) scale(0.9); } }
+@keyframes orbFloat2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(120px,-80px) scale(1.15); } }
+@keyframes orbFloat3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-70px,-90px) scale(1.25); } }
+
+/* GLOBAL CURSOR GLOW */
+#cursor-glow { position: fixed; top: 0; left: 0; width: 380px; height: 380px; border-radius: 50%; pointer-events: none; z-index: 2; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(240,192,64,0.10) 0%, transparent 70%); transition: opacity 0.4s; opacity: 0; mix-blend-mode: multiply; }
+#cursor-glow.active { opacity: 1; }
+
+/* GOLD DIVIDER */
+.gold-divider { height: 1px; max-width: 1280px; margin: 0 auto; background: linear-gradient(90deg, transparent, rgba(201,151,10,0.35) 50%, transparent); }
+
+/* HERO ACCENT — animated gold gradient */
+.hero-title .accent { background: linear-gradient(100deg, var(--gold) 0%, var(--gold-light) 35%, #b08208 55%, var(--gold-light) 75%, var(--gold) 100%); background-size: 300% auto; -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; animation: accentShine 7s linear infinite; }
+@keyframes accentShine { to { background-position: 300% center; } }
+
+/* NAV GLOW BORDER */
+nav { box-shadow: 0 1px 0 rgba(201,151,10,0.08); }
+nav.scrolled { box-shadow: 0 1px 0 rgba(201,151,10,0.18), 0 2px 40px rgba(28,26,24,0.07); }
+
+/* MAGNETIC TILT CARDS */
+.tilt-card { transform-style: preserve-3d; will-change: transform; }
+body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.025; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* LOADING */
+#loading-screen { position: fixed; inset: 0; background: var(--black); z-index: 99999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
+.loading-logo { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; letter-spacing: 0.08em; color: var(--white); }
+.loading-logo em { color: var(--gold); font-style: normal; }
+
+/* AUTH OVERLAY */
+#auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--cream); z-index: 9999; display: none; justify-content: center; align-items: center; }
+.auth-box { background: white; padding: 48px 44px; border-radius: 20px; box-shadow: 0 20px 60px rgba(28,26,24,0.12); text-align: center; width: 100%; max-width: 400px; }
+.auth-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; letter-spacing: 0.06em; color: var(--dark); margin-bottom: 8px; }
+.auth-logo em { color: var(--gold); font-style: normal; }
+.auth-tagline { font-size: 13px; color: var(--light-text); margin-bottom: 32px; }
+.auth-tabs { display: flex; border-bottom: 1px solid var(--beige); margin-bottom: 28px; }
+.auth-tab { flex: 1; padding: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--light-text); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; }
+.auth-tab.active { color: var(--dark); border-bottom-color: var(--gold); }
+.auth-field { width: 100%; padding: 12px 16px; margin-bottom: 12px; border: 1.5px solid var(--beige); border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--dark); background: var(--cream); transition: border-color 0.2s; outline: none; box-sizing: border-box; }
+.auth-field:focus { border-color: var(--gold); background: white; }
+.auth-field::placeholder { color: var(--beige2); }
+.auth-submit { width: 100%; padding: 14px; margin-top: 8px; background: var(--gold); color: white; border: none; border-radius: 100px; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.auth-submit:hover { background: #b08208; transform: translateY(-1px); }
+.auth-submit:disabled { background: var(--beige2); cursor: not-allowed; transform: none; }
+.auth-error { color: #d94040; font-size: 13px; margin-top: 14px; min-height: 18px; line-height: 1.4; }
+.auth-success { color: #2a7a2a; font-size: 13px; margin-top: 14px; line-height: 1.4; }
+#field-name { display: none; }
+
+/* NAVBAR */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 56px; height: 68px; background: rgba(250,247,242,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,151,10,0.12); transition: box-shadow 0.4s; }
+nav.scrolled { box-shadow: 0 2px 40px rgba(28,26,24,0.07); }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.account-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--dark); display: none; align-items: center; justify-content: center; font-weight: 700; color: var(--white); font-size: 15px; cursor: pointer; box-shadow: 0 4px 14px rgba(28,26,24,0.18); border: none; transition: transform 0.12s; }
+.account-btn:hover { transform: translateY(-1px); }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; letter-spacing: 0.06em; color: var(--dark); text-decoration: none; }
+.nav-logo em { color: var(--gold); font-style: normal; }
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a, .nav-link-btn { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; font-family: 'Inter', sans-serif; background: none; border: none; cursor: pointer; padding: 0; }
+.nav-links a:hover, .nav-link-btn:hover { color: var(--dark); }
+.nav-cta { background: var(--dark) !important; color: var(--white) !important; padding: 10px 24px; border-radius: 100px; font-size: 11px !important; letter-spacing: 0.12em !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: var(--gold) !important; color: var(--white) !important; }
+
+/* ACCOUNT MENU */
+#account-menu { position: absolute; top: 68px; left: 20px; background: white; border-radius: 16px; padding: 14px; min-width: 240px; box-shadow: 0 12px 40px rgba(28,26,24,0.14); display: none; z-index: 200; font-size: 14px; }
+.account-menu-header { display: flex; align-items: center; gap: 12px; padding: 8px 6px 14px; border-bottom: 1px solid var(--beige); margin-bottom: 8px; }
+.account-avatar-big { width: 44px; height: 44px; border-radius: 50%; background: var(--dark); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+.account-menu-name { font-weight: 600; font-size: 14px; color: var(--dark); }
+.account-menu-email { font-size: 11px; color: var(--light-text); margin-top: 1px; }
+.account-menu-item { display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-radius: 10px; cursor: pointer; transition: background 0.15s; width: 100%; background: none; border: none; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--dark); font-weight: 500; text-align: left; }
+.account-menu-item:hover { background: var(--cream); }
+.account-menu-item svg { width: 16px; height: 16px; color: var(--mid); flex-shrink: 0; }
+.account-menu-item.danger { color: #d94040; }
+.account-menu-item.danger svg { color: #d94040; }
+.account-menu-divider { height: 1px; background: var(--beige); margin: 4px 0; }
+
+/* PROMO STRIP */
+.promo-strip { margin-top: 68px; background: var(--black); color: rgba(255,255,255,0.7); text-align: center; padding: 11px 24px; font-size: 12px; font-weight: 400; letter-spacing: 0.06em; }
+.promo-strip strong { color: var(--gold-light); font-weight: 600; }
+
+/* HERO */
+.hero { min-height: calc(100vh - 68px - 40px); display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+.hero-left { display: flex; flex-direction: column; justify-content: center; padding: 100px 64px 100px 80px; position: relative; z-index: 2; }
+.hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; opacity: 0; animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
+.hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(54px, 5.5vw, 82px); font-weight: 300; line-height: 1.03; letter-spacing: -0.02em; color: var(--dark); margin-bottom: 20px; opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s forwards; }
+.hero-title .accent { color: var(--gold); font-style: italic; }
+.hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(19px, 2vw, 24px); font-weight: 300; font-style: italic; color: var(--mid); line-height: 1.45; margin-bottom: 44px; max-width: 400px; opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.38s forwards; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 52px; opacity: 0; animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.5s forwards; }
+.hero-tag { padding: 5px 14px; border: 1px solid var(--beige2); border-radius: 100px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--light-text); text-transform: uppercase; }
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.6s forwards; }
+@keyframes heroFadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.hero-right { position: relative; overflow: hidden; }
+.hero-right img { width: 100%; height: 110%; object-fit: cover; object-position: center top; will-change: transform; opacity: 0; animation: heroImgReveal 1.2s cubic-bezier(0.22,1,0.36,1) 0.15s forwards; }
+@keyframes heroImgReveal { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
+.hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 28%); pointer-events: none; z-index: 1; }
+
+/* BUTTONS */
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--white); padding: 15px 30px; border-radius: 100px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, box-shadow 0.25s, transform 0.2s; animation: goldPulse 3.5s ease-in-out infinite; }
+@keyframes goldPulse { 0%,100% { box-shadow: 0 4px 18px rgba(201,151,10,0.18); } 50% { box-shadow: 0 4px 28px rgba(201,151,10,0.42); } }
+.btn-primary:hover { background: #b08208; box-shadow: 0 8px 28px rgba(201,151,10,0.45); transform: translateY(-2px) scale(1.02); animation: none; }
+.btn-outline { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--dark); padding: 14px 30px; border-radius: 100px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--beige2); cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.btn-outline:hover { border-color: var(--dark); color: var(--dark); }
+
+/* BLACK ACCENT SECTION */
+.black-banner { background: var(--black); color: white; padding: 80px 80px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.black-banner-text { max-width: 600px; }
+.black-banner-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; display: block; }
+.black-banner-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 400; line-height: 1.1; color: white; margin-bottom: 16px; }
+.black-banner-sub { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.65; }
+.black-banner-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: white; padding: 15px 30px; border-radius: 100px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; }
+.black-banner-btn:hover { background: #b08208; }
+
+/* SECTIONS */
+section { padding: 120px 80px; }
+.section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.section-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+.why .section-eyebrow::before { background: linear-gradient(90deg, var(--gold-light), transparent); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 3.8vw, 56px); font-weight: 400; line-height: 1.08; color: var(--dark); margin-bottom: 28px; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.about-photos { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px; }
+.about-photos img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block; }
+.about-photos img:first-child { grid-column: 1 / 3; height: 320px; }
+.about-photos img:nth-child(2), .about-photos img:nth-child(3) { height: 200px; }
+.about-body p { color: var(--mid); margin-bottom: 20px; font-size: 15px; }
+.about-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; font-weight: 400; color: var(--dark); border-left: 3px solid var(--gold); padding: 6px 0 6px 24px; margin: 28px 0; line-height: 1.5; }
+.founder-badge { display: flex; align-items: center; gap: 16px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--beige); }
+.founder-avatar { width: 52px; height: 52px; min-width: 52px; border-radius: 50%; background: var(--gold-bg); display: flex; align-items: center; justify-content: center; }
+.founder-avatar svg { width: 26px; height: 26px; }
+.founder-name { font-size: 15px; font-weight: 600; color: var(--dark); }
+.founder-role { font-size: 12px; color: var(--light-text); margin-top: 2px; }
+
+/* WHY */
+.why { background: var(--black); padding: 120px 80px; }
+.why .section-eyebrow { color: var(--gold); }
+.why .section-title { color: white; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px; margin-top: 60px; }
+.why-item {}
+.why-num { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 500; line-height: 1; margin-bottom: 16px; color: transparent; background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 70%); -webkit-background-clip: text; background-clip: text; opacity: 0.85; }
+.why-heading { font-size: 16px; font-weight: 600; color: white; margin-bottom: 10px; }
+.why-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+/* SERVICES */
+.services-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; gap: 20px; }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.service-card { background: var(--white); border: 1px solid var(--beige); border-radius: 16px; padding: 32px 26px; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+.service-card:hover { border-color: rgba(201,151,10,0.35); box-shadow: 0 20px 50px rgba(28,26,24,0.08); transform: translateY(-6px); }
+.service-card:hover .service-icon-glyph { color: var(--gold); transform: translateY(-2px) scale(1.08); }
+.service-icon-glyph { transition: color 0.3s, transform 0.3s; }
+.service-card:hover { border-color: var(--gold); box-shadow: 0 14px 40px rgba(28,26,24,0.06); transform: translateY(-3px); }
+.service-icon-glyph { width: 40px; height: 40px; color: var(--gold); margin-bottom: 22px; display: block; }
+.service-name { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; color: var(--dark); margin-bottom: 10px; }
+.service-desc { font-size: 13.5px; color: var(--mid); line-height: 1.65; }
+.ind-section { margin-top: 80px; padding-top: 56px; border-top: 1px solid var(--beige); }
+.individual-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+.ind-card { background: var(--cream); border: 1px solid var(--beige); border-radius: 16px; padding: 28px 26px; }
+.ind-label { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: var(--gold-bg); padding: 4px 12px; border-radius: 100px; margin-bottom: 14px; }
+.ind-name { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; color: var(--dark); margin-bottom: 8px; }
+.ind-desc { font-size: 13.5px; color: var(--mid); line-height: 1.6; margin-bottom: 18px; }
+.ind-price { font-size: 18px; font-weight: 600; color: var(--dark); }
+
+/* TRAINERS CAROUSEL */
+.trainers-section { background: linear-gradient(180deg, var(--cream) 0%, var(--beige) 100%); }
+.trainers-carousel-wrap { position: relative; margin-top: 56px; }
+.trainers-carousel { display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px; cursor: grab; user-select: none; }
+.trainers-carousel:active { cursor: grabbing; }
+.trainers-carousel::-webkit-scrollbar { height: 0; }
+.trainer-card { flex: 0 0 300px; scroll-snap-align: start; background: white; border-radius: 24px; overflow: hidden; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s; box-shadow: 0 4px 24px rgba(28,26,24,0.06); }
+.trainer-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(28,26,24,0.13); }
+.trainer-photo-wrap { position: relative; width: 100%; height: 360px; overflow: hidden; }
+.trainer-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+.trainer-card:hover .trainer-photo { transform: scale(1.04); }
+.trainer-photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.trainer-photo-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,13,12,0.72) 0%, rgba(14,13,12,0.1) 55%, transparent 100%); pointer-events: none; }
+.trainer-tag-over { position: absolute; top: 18px; left: 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: white; background: var(--gold); padding: 5px 14px; border-radius: 100px; }
+.trainer-info { padding: 24px 26px 28px; }
+.trainer-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--dark); margin-bottom: 12px; line-height: 1.1; }
+.trainer-desc { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+/* PREMIUM MONOGRAM TRAINER CARDS */
+.trainer-card { position: relative; }
+.trainer-mono-wrap { position: relative; width: 100%; height: 220px; overflow: hidden; background: linear-gradient(150deg, #1c1a18 0%, #14120f 55%, #2a2118 100%); display: flex; align-items: center; justify-content: center; }
+.trainer-mono-wrap::before { content:''; position:absolute; inset:-40%; background: radial-gradient(circle at 30% 30%, rgba(240,192,64,0.18), transparent 60%); transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), opacity 0.6s; }
+.trainer-card:hover .trainer-mono-wrap::before { transform: scale(1.25) rotate(8deg); opacity: 1.3; }
+.trainer-mono-wrap::after { content:''; position:absolute; inset:0; background: repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 14px); pointer-events:none; }
+.trainer-mono { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 92px; line-height: 1; color: transparent; background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, #b08208 100%); -webkit-background-clip: text; background-clip: text; position: relative; z-index: 1; letter-spacing: 0.02em; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); filter: drop-shadow(0 6px 18px rgba(201,151,10,0.25)); }
+.trainer-card:hover .trainer-mono { transform: scale(1.08) translateY(-2px); }
+.trainer-mono-ring { position: absolute; width: 132px; height: 132px; border: 1px solid rgba(240,192,64,0.28); border-radius: 50%; z-index: 0; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), border-color 0.6s; }
+.trainer-card:hover .trainer-mono-ring { transform: scale(1.18) rotate(40deg); border-color: rgba(240,192,64,0.5); }
+.trainer-mono-ring::before { content:''; position:absolute; inset:-14px; border: 1px solid rgba(240,192,64,0.12); border-radius: 50%; }
+
+/* SCROLL REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-stagger.visible .reveal-child:nth-child(1) { transition-delay: 0.02s; }
+.reveal-stagger.visible .reveal-child:nth-child(2) { transition-delay: 0.08s; }
+.reveal-stagger.visible .reveal-child:nth-child(3) { transition-delay: 0.14s; }
+.reveal-stagger.visible .reveal-child:nth-child(4) { transition-delay: 0.2s; }
+.reveal-stagger.visible .reveal-child:nth-child(5) { transition-delay: 0.26s; }
+.reveal-stagger.visible .reveal-child:nth-child(6) { transition-delay: 0.32s; }
+
+/* PREMIUM BUTTON SHIMMER */
+.btn-primary, .black-banner-btn { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::before, .black-banner-btn::before { content:''; position:absolute; top:0; left:-120%; width:60%; height:100%; background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%); transform: skewX(-18deg); transition: left 0.65s cubic-bezier(0.22,1,0.36,1); z-index: 0; }
+.btn-primary:hover::before, .black-banner-btn:hover::before { left: 130%; }
+
+/* GUEST LOGIN BUTTON */
+.guest-login-btn { background: var(--dark) !important; color: var(--white) !important; padding: 10px 24px; border-radius: 100px; font-size: 11px !important; letter-spacing: 0.12em !important; transition: background 0.2s !important; font-weight: 500; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+.guest-login-btn:hover { background: var(--gold) !important; }
+
+/* AUTH OVERLAY CLOSE (re-auth mode) */
+.auth-close-btn { position: absolute; top: 18px; right: 18px; width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--cream); color: var(--mid); font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
+.auth-close-btn:hover { background: var(--beige); color: var(--dark); }
+.auth-box { position: relative; }
+.carousel-nav { display: flex; gap: 12px; margin-top: 40px; justify-content: center; align-items: center; }
+.carousel-nav-btn { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--beige2); background: white; color: var(--dark); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s; }
+.carousel-nav-btn:hover { border-color: var(--gold); background: var(--gold); color: white; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,151,10,0.25); }
+.carousel-dots { display: flex; gap: 8px; align-items: center; margin: 0 12px; }
+.carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--beige2); transition: background 0.25s, transform 0.25s, width 0.25s; cursor: pointer; }
+.carousel-dot.active { background: var(--gold); transform: scale(1.2); width: 24px; border-radius: 4px; }
+
+/* SCHEDULE SECTION */
+.schedule-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 40px; }
+.schedule-meta-item { font-size: 13px; color: var(--mid); display: flex; align-items: center; gap: 8px; }
+.schedule-meta-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: inline-block; }
+
+/* MONTH CALENDAR NAV */
+.month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.month-nav-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; color: var(--dark); text-transform: capitalize; }
+.month-nav-btns { display: flex; gap: 10px; }
+.month-nav-btn { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--beige2); background: white; color: var(--dark); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; }
+.month-nav-btn:hover { border-color: var(--gold); background: var(--gold-bg); }
+.month-calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 36px; }
+.cal-header { text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light-text); padding: 8px 0; }
+.cal-day { border-radius: 10px; padding: 8px 6px; min-height: 68px; background: white; border: 1.5px solid transparent; cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.15s; position: relative; }
+.cal-day:hover:not(.cal-day-empty):not(.cal-day-past) { border-color: var(--gold); transform: translateY(-1px); }
+.cal-day.cal-day-active { border-color: var(--dark); background: var(--dark); }
+.cal-day.cal-day-today { border-color: var(--gold); }
+.cal-day.cal-day-past { opacity: 0.45; cursor: not-allowed; }
+.cal-day.cal-day-empty { background: transparent; border-color: transparent; cursor: default; }
+.cal-day-num { font-size: 14px; font-weight: 600; color: var(--dark); display: block; margin-bottom: 4px; }
+.cal-day.cal-day-active .cal-day-num { color: white; }
+.cal-day-dots { display: flex; flex-wrap: wrap; gap: 3px; }
+.cal-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.cal-day.cal-day-active .cal-dot { background: var(--gold-light); }
+.cal-day.cal-day-past .cal-dot { background: var(--beige2); }
+
+.schedule-list { display: flex; flex-direction: column; gap: 12px; }
+.schedule-item { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 18px 24px; border-radius: 16px; background: var(--white); border: 1px solid var(--beige); transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 2px 10px rgba(28,26,24,0.03); position: relative; overflow: hidden; }
+.schedule-item::before { content:''; position:absolute; left:0; top:0; bottom:0; width:5px; background: var(--cat-color, var(--gold)); }
+.schedule-item:hover { box-shadow: 0 12px 32px rgba(28,26,24,0.08); transform: translateY(-2px); border-color: var(--beige2); }
+.schedule-time-badge { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--dark); background: var(--cream); border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 86px; line-height: 1.15; }
+.schedule-time-badge small { display: block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: var(--light-text); text-transform: uppercase; margin-top: 3px; }
+.schedule-name { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+.schedule-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.s-chip { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; letter-spacing: 0.02em; white-space: nowrap; }
+.s-chip-trainer { background: rgba(176,130,8,0.12); color: #b08208; }
+.s-chip-level { background: var(--cream); color: var(--mid); }
+.s-chip-cap { background: #eef5ee; color: #2a7a2a; }
+.s-chip-cap.full { background: #fbeaea; color: #d94040; }
+.s-chip-open { background: #eef5ee; color: #2a7a2a; }
+.schedule-desc { font-size: 12px; color: var(--light-text); margin-top: 8px; line-height: 1.4; max-width: 480px; }
+.schedule-time { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--dark); min-width: 84px; }
+.schedule-days { font-size: 12px; color: var(--light-text); margin-top: 2px; }
+.schedule-dur { font-size: 12px; color: var(--mid); white-space: nowrap; }
+.schedule-price { font-size: 13px; font-weight: 600; color: var(--dark); white-space: nowrap; }
+.by-sub { font-weight: 400; color: var(--light-text); font-size: 12px; }
+.schedule-item .spacer { flex: 1; }
+.book-btn { padding: 10px 22px; border-radius: 100px; border: none; cursor: pointer; background: var(--gold); color: var(--white); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+.book-btn:hover { background: #b08208; transform: translateY(-1px); }
+.book-btn:disabled { background: var(--beige2); color: var(--light-text); cursor: not-allowed; transform: none; }
+.book-btn.booked { background: var(--white); color: var(--gold); border: 1.5px solid var(--gold); }
+.schedule-empty { text-align: center; padding: 40px; color: var(--light-text); font-size: 14px; }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(28,26,24,0.45); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--white); border-radius: 18px; padding: 36px; max-width: 420px; width: 100%; box-shadow: 0 24px 70px rgba(28,26,24,0.18); position: relative; }
+.modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; font-size: 20px; color: var(--light-text); cursor: pointer; line-height: 1; }
+.modal-close:hover { color: var(--dark); }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--dark); margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--mid); margin-bottom: 24px; }
+.modal-row { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-bottom: 1px solid #F3F0EB; color: var(--mid); }
+.modal-row strong { color: var(--dark); }
+.modal-actions { margin-top: 24px; display: flex; gap: 12px; }
+.modal-actions .auth-submit { flex: 1; }
+.modal-cancel-btn { flex: 1; padding: 14px; border-radius: 100px; border: 1.5px solid var(--beige2); background: transparent; color: var(--mid); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.modal-cancel-btn:hover { border-color: var(--dark); color: var(--dark); }
+.modal-msg { font-size: 13px; margin-top: 14px; line-height: 1.4; }
+.modal-msg.err { color: #d94040; }
+.modal-msg.ok { color: #2a7a2a; }
+
+/* MY BOOKINGS LIST in modal */
+.mybookings-list { display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
+.mybooking-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 10px; background: var(--cream); font-size: 12px; border: 1px solid var(--beige); }
+.mybooking-info strong { display: block; font-size: 13px; color: var(--dark); margin-bottom: 2px; }
+.mybooking-info span { color: var(--light-text); }
+.mybooking-cancel { border: none; background: none; color: #d94040; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+.mybooking-cancel:disabled { color: var(--light-text); cursor: not-allowed; }
+.mybookings-empty { font-size: 13px; color: var(--light-text); text-align: center; padding: 24px 0; }
+
+/* PROFILE PANEL */
+#profile-panel { position: fixed; inset: 0; z-index: 950; background: var(--cream); overflow-y: auto; display: none; }
+#profile-panel.open { display: block; }
+.profile-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 56px; height: 68px; background: rgba(250,247,242,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,151,10,0.12); z-index: 2; }
+.profile-header-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--dark); }
+.panel-close { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--beige2); background: var(--white); color: var(--dark); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, transform 0.2s; }
+.panel-close:hover { border-color: var(--gold); transform: rotate(90deg); }
+.profile-body { max-width: 960px; margin: 0 auto; padding: 48px 56px 100px; }
+.profile-hero { display: flex; align-items: center; gap: 28px; background: var(--black); border-radius: 20px; padding: 36px; margin-bottom: 40px; }
+.profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--gold); color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; flex-shrink: 0; }
+.profile-hero-info h2 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: white; margin-bottom: 4px; }
+.profile-hero-info p { font-size: 14px; color: rgba(255,255,255,0.5); }
+.profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+.profile-stat { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--beige); text-align: center; }
+.profile-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; color: var(--dark); line-height: 1; margin-bottom: 6px; }
+.profile-stat-label { font-size: 12px; color: var(--light-text); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+.profile-section-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--dark); margin-bottom: 18px; }
+.profile-bookings-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+.profile-booking-row { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: white; border-radius: 14px; border: 1px solid var(--beige); }
+.profile-booking-badge { width: 48px; height: 48px; border-radius: 12px; background: var(--gold-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.profile-booking-badge svg { width: 22px; height: 22px; color: var(--gold); }
+.profile-booking-info { flex: 1; }
+.profile-booking-name { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+.profile-booking-date { font-size: 12px; color: var(--light-text); }
+.profile-cancel-btn { border: none; background: transparent; color: #d94040; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; white-space: nowrap; }
+.profile-cancel-btn:disabled { color: var(--light-text); cursor: not-allowed; }
+.profile-tabs { display: flex; gap: 6px; margin-bottom: 28px; }
+.profile-tab { padding: 9px 20px; border-radius: 100px; border: 1.5px solid var(--beige2); background: transparent; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); cursor: pointer; transition: all 0.2s; }
+.profile-tab.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+/* ABONNEMENTS */
+.sub-text { font-size: 15px; color: var(--mid); max-width: 560px; margin-top: -12px; margin-bottom: 48px; }
+.ab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.ab-card { background: var(--white); border: 1px solid var(--beige); border-radius: 18px; padding: 36px 32px; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s, border-color 0.3s; }
+.ab-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(28,26,24,0.1); border-color: rgba(201,151,10,0.35); }
+.ab-card.featured:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 60px rgba(201,151,10,0.22); }
+.ab-card.ab-visible { opacity: 1; transform: translateY(0); }
+.ab-card.featured { background: var(--black); color: var(--white); border-color: var(--black); transform: translateY(24px) scale(1.02); }
+.ab-card.featured.ab-visible { transform: translateY(0) scale(1.02); }
+.ab-badge { display: inline-block; align-self: flex-start; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: var(--gold-bg); padding: 5px 14px; border-radius: 100px; margin-bottom: 22px; }
+.ab-card.featured .ab-badge { background: rgba(201,151,10,0.18); color: var(--gold-light); }
+.ab-count { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-bottom: 10px; }
+.ab-card.featured .ab-count { color: rgba(255,255,255,0.6); }
+.ab-price { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; color: var(--dark); margin-bottom: 6px; }
+.ab-card.featured .ab-price { color: var(--white); }
+.ab-price sup { font-size: 22px; font-weight: 400; margin-right: 2px; vertical-align: top; top: 0.5em; }
+.ab-period { font-size: 13px; color: var(--light-text); margin-bottom: 24px; }
+.ab-card.featured .ab-period { color: rgba(255,255,255,0.5); }
+.ab-features { list-style: none; font-size: 13.5px; color: var(--mid); flex: 1; margin-bottom: 28px; }
+.ab-card.featured .ab-features { color: rgba(255,255,255,0.75); }
+.ab-features li { padding: 9px 0; border-top: 1px solid var(--beige); }
+.ab-card.featured .ab-features li { border-top: 1px solid rgba(255,255,255,0.1); }
+.ab-features li:first-child { border-top: none; }
+.ab-btn { display: block; text-align: center; padding: 14px; border-radius: 100px; background: var(--gold); color: var(--white); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; border: none; cursor: pointer; }
+.ab-btn:hover { background: #b08208; transform: translateY(-1px); }
+.ab-promo { display: flex; align-items: center; gap: 18px; margin-top: 32px; padding: 22px 28px; border-radius: 16px; background: var(--black); font-size: 14px; color: rgba(255,255,255,0.7); }
+.ab-promo-glyph { width: 32px; height: 32px; min-width: 32px; color: var(--gold); }
+.ab-promo strong { color: var(--gold-light); }
+
+/* ATMOSPHERE */
+.atm-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 240px 240px; gap: 16px; }
+.atm-cell { position: relative; border-radius: 16px; overflow: hidden; }
+.atm-cell:first-child { grid-column: 1 / 3; grid-row: 1 / 3; }
+.atm-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.atm-cell:hover img { transform: scale(1.05); }
+.atm-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 18px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--white); background: linear-gradient(to top, rgba(14,13,12,0.65), transparent); }
+
+/* CONTACTS */
+.contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.contact-block { margin-bottom: 28px; }
+.contact-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.contact-value { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--dark); }
+.contact-sub { font-size: 13px; color: var(--light-text); margin-top: 4px; }
+.social-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+.social-btn { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-radius: 100px; border: 1.5px solid var(--beige2); background: var(--white); color: var(--dark); font-size: 14px; font-weight: 600; text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.15s; }
+.social-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+.map-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; height: 320px; border-radius: 18px; background: var(--beige); text-align: center; font-size: 14px; color: var(--mid); }
+.map-pin { font-size: 36px; }
+.map-link { display: inline-block; margin-top: 18px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; }
+.map-link:hover { color: #b08208; }
+
+/* FOOTER */
+footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 48px 80px; border-top: 1px solid var(--beige); background: var(--black); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; letter-spacing: 0.06em; color: white; }
+.footer-logo em { color: var(--gold); font-style: normal; }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 6px; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+/* SCHEDULE PAGE */
+#schedule-page { position: fixed; inset: 0; z-index: 900; background: var(--cream); overflow-y: auto; display: none; }
+#schedule-page.open { display: block; }
+.schedule-page-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 56px; height: 68px; background: rgba(250,247,242,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,151,10,0.12); z-index: 2; }
+.schedule-page-body { max-width: 1080px; margin: 0 auto; padding: 48px 80px 100px; }
+
+/* CHAT WIDGET */
+#chat-btn { position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; border-radius: 50%; background: var(--black); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 32px rgba(14,13,12,0.35); z-index: 800; transition: transform 0.2s, background 0.2s; }
+#chat-btn:hover { transform: translateY(-2px) scale(1.05); background: var(--gold); }
+#chat-btn svg { width: 24px; height: 24px; color: white; }
+.chat-badge { position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; background: #e63946; border-radius: 50%; border: 2px solid white; display: none; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; }
+.chat-badge.visible { display: flex; }
+
+#chat-panel { position: fixed; bottom: 100px; right: 28px; width: 360px; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(14,13,12,0.18); z-index: 800; display: none; flex-direction: column; overflow: hidden; max-height: 520px; }
+#chat-panel.open { display: flex; }
+.chat-header { background: var(--black); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.chat-header-info { display: flex; align-items: center; gap: 12px; }
+.chat-admin-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: white; flex-shrink: 0; }
+.chat-admin-name { font-size: 14px; font-weight: 600; color: white; }
+.chat-admin-status { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+.chat-close-btn { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 20px; line-height: 1; padding: 4px; }
+.chat-close-btn:hover { color: white; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-height: 200px; }
+.chat-msg { max-width: 80%; }
+.chat-msg-bubble { padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+.chat-msg.from-user { align-self: flex-end; }
+.chat-msg.from-user .chat-msg-bubble { background: var(--dark); color: white; border-bottom-right-radius: 4px; }
+.chat-msg.from-admin { align-self: flex-start; }
+.chat-msg.from-admin .chat-msg-bubble { background: var(--cream); color: var(--dark); border-bottom-left-radius: 4px; }
+.chat-msg-time { font-size: 10px; color: var(--light-text); margin-top: 3px; padding: 0 4px; }
+.chat-msg.from-user .chat-msg-time { text-align: right; }
+.chat-empty { text-align: center; color: var(--light-text); font-size: 13px; padding: 24px 0; }
+.chat-input-row { border-top: 1px solid var(--beige); padding: 12px 14px; display: flex; gap: 10px; align-items: flex-end; flex-shrink: 0; }
+.chat-input { flex: 1; border: 1.5px solid var(--beige); border-radius: 12px; padding: 9px 13px; font-size: 13px; font-family: 'Inter', sans-serif; color: var(--dark); background: var(--cream); outline: none; resize: none; max-height: 80px; transition: border-color 0.2s; }
+.chat-input:focus { border-color: var(--gold); background: white; }
+.chat-input::placeholder { color: var(--beige2); }
+.chat-send-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--gold); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, transform 0.15s; }
+.chat-send-btn:hover { background: #b08208; transform: scale(1.05); }
+.chat-send-btn svg { width: 16px; height: 16px; color: white; }
+
+/* ADMIN PANEL */
+#admin-panel { position: fixed; inset: 0; z-index: 10000; background: var(--cream); display: none; flex-direction: column; }
+#admin-panel.open { display: flex; }
+.admin-header { background: var(--black); padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.admin-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: white; }
+.admin-logo em { color: var(--gold); font-style: normal; }
+.admin-badge { background: #e63946; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+.admin-close-btn { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Inter', sans-serif; font-weight: 600; }
+.admin-close-btn:hover { color: white; }
+.admin-tab-btn { background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;transition:all .2s; }
+.admin-tab-btn:hover { color:#fff; background:rgba(255,255,255,0.06); }
+.admin-tab-btn.active { color:#fff; background:rgba(255,255,255,0.1); }
+.gallery-admin-item { border-radius:12px; overflow:hidden; background:rgba(255,255,255,0.05); }
+.gallery-admin-item img { width:100%; height:140px; object-fit:cover; display:block; }
+.gallery-admin-item .gai-cap { padding:10px; font-size:12px; color:rgba(255,255,255,0.7); }
+.gallery-admin-item .gai-del { width:100%; border:none; background:rgba(230,57,70,0.15); color:#e63946; padding:8px; font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; }
+.gallery-admin-item .gai-del:hover { background:rgba(230,57,70,0.3); }
+.gallery-public-cap { padding:14px 16px; background:var(--white); color:var(--dark); font-size:13px; line-height:1.4; }
+.atm-cell.has-caption { display:flex; flex-direction:column; }
+.atm-cell.has-caption img { flex:1; }
+.admin-body { display: flex; flex: 1; overflow: hidden; }
+.admin-sidebar { width: 300px; background: white; border-right: 1px solid var(--beige); overflow-y: auto; flex-shrink: 0; }
+.admin-sidebar-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--light-text); padding: 20px 20px 10px; }
+.admin-conv-item { padding: 14px 20px; border-bottom: 1px solid var(--beige); cursor: pointer; transition: background 0.15s; }
+.admin-conv-item:hover { background: var(--cream); }
+.admin-conv-item.active { background: var(--gold-bg); border-left: 3px solid var(--gold); }
+.admin-conv-name { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 3px; }
+.admin-conv-preview { font-size: 12px; color: var(--light-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-conv-time { font-size: 10px; color: var(--light-text); margin-top: 4px; }
+.admin-conv-unread { display: inline-block; width: 8px; height: 8px; background: #e63946; border-radius: 50; vertical-align: middle; margin-left: 6px; }
+.admin-chat-area { flex: 1; display: flex; flex-direction: column; }
+.admin-chat-header { padding: 16px 24px; border-bottom: 1px solid var(--beige); display: flex; align-items: center; gap: 12px; background: white; flex-shrink: 0; }
+.admin-chat-user { font-size: 15px; font-weight: 600; color: var(--dark); }
+.admin-chat-email { font-size: 12px; color: var(--light-text); }
+.admin-messages { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; background: var(--cream); }
+.admin-msg { max-width: 75%; }
+.admin-msg-bubble { padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+.admin-msg.from-user { align-self: flex-start; }
+.admin-msg.from-user .admin-msg-bubble { background: white; color: var(--dark); border-bottom-left-radius: 4px; }
+.admin-msg.from-admin { align-self: flex-end; }
+.admin-msg.from-admin .admin-msg-bubble { background: var(--dark); color: white; border-bottom-right-radius: 4px; }
+.admin-msg-time { font-size: 10px; color: var(--light-text); margin-top: 3px; padding: 0 4px; }
+.admin-msg.from-admin .admin-msg-time { text-align: right; }
+.admin-input-row { border-top: 1px solid var(--beige); padding: 14px 24px; display: flex; gap: 10px; align-items: center; background: white; flex-shrink: 0; }
+.admin-input { flex: 1; border: 1.5px solid var(--beige); border-radius: 12px; padding: 10px 14px; font-size: 13px; font-family: 'Inter', sans-serif; color: var(--dark); background: var(--cream); outline: none; transition: border-color 0.2s; }
+.admin-input:focus { border-color: var(--gold); }
+.admin-send-btn { padding: 10px 22px; border-radius: 100px; background: var(--gold); color: white; border: none; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.admin-send-btn:hover { background: #b08208; }
+.admin-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; color: var(--light-text); font-size: 14px; gap: 12px; }
+.admin-login { position: fixed; inset: 0; background: var(--black); z-index: 10001; display: flex; align-items: center; justify-content: center; }
+.admin-login-box { background: white; padding: 44px; border-radius: 20px; width: 100%; max-width: 380px; text-align: center; }
+.admin-login-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; color: var(--dark); margin-bottom: 6px; }
+.admin-login-sub { font-size: 13px; color: var(--light-text); margin-bottom: 28px; }
+
+/* HIDDEN / UTILS */
+.hidden { display: none !important; }
+
+@media (max-width: 1100px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .individual-services { grid-template-columns: 1fr; }
+  .ab-grid { grid-template-columns: 1fr; }
+  .atm-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: 220px 220px 220px; }
+  .atm-cell:first-child { grid-column: 1 / 3; grid-row: 1 / 2; }
+  .profile-stats { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 860px) {
+  nav { padding: 0 24px; }
+  .nav-links { gap: 20px; }
+  section { padding: 80px 24px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { min-height: 380px; order: -1; }
+  .hero-left { padding: 60px 24px; }
+  .about-grid, .contacts-grid { grid-template-columns: 1fr; }
+  .about-photos img:first-child { height: 240px; }
+  .services-grid, .why-grid { grid-template-columns: 1fr; }
+  footer { padding: 32px 24px; text-align: center; justify-content: center; }
+  .schedule-page-header { padding: 0 20px; }
+  .schedule-page-body { padding: 32px 20px 80px; }
+  .black-banner { flex-direction: column; padding: 60px 24px; }
+  .month-calendar { gap: 4px; }
+  .cal-day { min-height: 54px; padding: 6px 4px; }
+  .cal-day-num { font-size: 12px; }
+  #chat-panel { width: calc(100vw - 32px); right: 16px; }
+  .admin-sidebar { width: 220px; }
+  .profile-stats { grid-template-columns: 1fr; }
+  .profile-body { padding: 32px 20px 80px; }
+  .profile-header { padding: 0 20px; }
+}
+    </style>
+</head>
+<body>
+<div id="cursor-glow"></div>
+<div class="ambient-orb ambient-orb-1"></div>
+<div class="ambient-orb ambient-orb-2"></div>
+<div class="ambient-orb ambient-orb-3"></div>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="loading-logo">СВЕТ<em>лица</em></div>
+  <svg width="32" height="32" viewBox="0 0 36 36" fill="none" stroke="#C9970A" stroke-width="2" stroke-linecap="round">
+    <circle cx="18" cy="18" r="14" stroke-opacity="0.15"/>
+    <path d="M18 4 A14 14 0 0 1 32 18">
+      <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="0.8s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+</div>
+
+<!-- AUTH OVERLAY -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <button class="auth-close-btn" id="auth-close-btn" onclick="closeAuthOverlay()">×</button>
+    <div class="auth-logo">СВЕТ<em>лица</em></div>
+    <div class="auth-tagline">студия йоги, танцев и творчества</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Вход</button>
+      <button class="auth-tab" onclick="switchTab('register')">Регистрация</button>
+    </div>
+    <div id="field-name"><input class="auth-field" type="text" id="name" placeholder="Ваше имя"></div>
+    <input class="auth-field" type="email" id="email" placeholder="Email">
+    <input class="auth-field" type="password" id="pass" placeholder="Пароль">
+    <button class="auth-submit" id="auth-btn" onclick="submitAuth()">Войти</button>
+    <p class="auth-error" id="auth-error"></p>
+    <p class="auth-success" id="auth-success"></p>
+    <p style="margin-top:18px;font-size:12px;color:var(--light-text);cursor:pointer;" onclick="openAdminLogin()">Вход для персонала →</p>
+    <p style="margin-top:10px;font-size:13px;color:var(--mid);cursor:pointer;text-decoration:underline;" onclick="enterAsGuest()">Войти позже, просто посмотреть сайт</p>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="admin-login-overlay" class="admin-login" style="display:none;">
+  <div class="admin-login-box">
+    <div class="admin-login-title">Панель администратора</div>
+    <div class="admin-login-sub">СВЕТлица — вход для персонала</div>
+    <input class="auth-field" type="text" id="admin-login-input" placeholder="Логин" autocomplete="off">
+    <input class="auth-field" type="password" id="admin-pass-input" placeholder="Пароль администратора">
+    <button class="auth-submit" onclick="checkAdminPass()">Войти в панель</button>
+    <p class="auth-error" id="admin-login-error"></p>
+    <p style="margin-top:16px;font-size:12px;color:var(--light-text);">Для возврата на сайт — нажмите Esc</p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="admin-header">
+    <div class="admin-logo">СВЕТ<em>лица</em> · <span style="font-family:'Inter';font-size:13px;color:rgba(255,255,255,0.5);font-weight:500;">Панель администратора</span></div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <span style="font-size:12px;color:rgba(255,255,255,0.5);" id="admin-current-name"></span>
+      <span class="admin-badge" id="admin-unread-badge" style="display:none;">0 новых</span>
+      <button class="admin-close-btn" onclick="adminLogout()">Выйти</button>
+      <button class="admin-close-btn" onclick="closeAdminPanel()">← Закрыть панель</button>
+    </div>
+  </div>
+  <div class="admin-tabs" style="display:flex;gap:8px;padding:12px 28px;border-bottom:1px solid rgba(255,255,255,0.08);background:var(--black);">
+    <button class="admin-tab-btn active" id="admin-tab-chats" onclick="switchAdminTab('chats')">💬 Чаты</button>
+    <button class="admin-tab-btn" id="admin-tab-gallery" onclick="switchAdminTab('gallery')">🖼 Галерея и новости</button>
+  </div>
+  <div class="admin-body" id="admin-body-chats">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title">Диалоги</div>
+      <div id="admin-conv-list"></div>
+    </div>
+    <div class="admin-chat-area" id="admin-chat-area">
+      <div class="admin-empty" id="admin-empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Выберите диалог слева
+      </div>
+      <div id="admin-active-chat" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+        <div class="admin-chat-header">
+          <div>
+            <div class="admin-chat-user" id="admin-chat-username"></div>
+            <div class="admin-chat-email" id="admin-chat-email"></div>
+          </div>
+        </div>
+        <div class="admin-messages" id="admin-messages-list"></div>
+        <div class="admin-input-row">
+          <input class="admin-input" id="admin-reply-input" placeholder="Ответить..." onkeydown="if(event.key==='Enter')sendAdminReply()">
+          <button class="admin-send-btn" onclick="sendAdminReply()">Отправить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN: GALLERY/NEWS MANAGEMENT -->
+  <div class="admin-body" id="admin-body-gallery" style="display:none;flex-direction:column;padding:28px;overflow-y:auto;gap:24px;">
+    <div style="max-width:480px;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:12px;color:#fff;">Добавить фото</h3>
+      <input type="file" id="gallery-file-input" accept="image/*" class="auth-field" style="background:rgba(255,255,255,0.06);color:#fff;">
+      <textarea id="gallery-caption-input" class="auth-field" placeholder="Текст к фото (новость, описание)" rows="3" style="background:rgba(255,255,255,0.06);color:#fff;resize:vertical;"></textarea>
+      <button class="auth-submit" onclick="addGalleryItem()">Опубликовать</button>
+      <p class="auth-error" id="gallery-error"></p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px;">Фото автоматически сжимается. Рекомендуем не более 10–15 фото одновременно.</p>
+    </div>
+    <div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:12px;color:#fff;">Опубликованные фото</h3>
+      <div id="admin-gallery-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN SITE CONTENT -->
+<div id="main-content" style="display:none;">
+
+<!-- NAVBAR -->
+<nav id="main-nav">
+  <div class="nav-left">
+    <div style="position:relative;display:inline-block;">
+      <button id="account-btn" class="account-btn" title="Профиль">А</button>
+      <span id="admin-notify-dot" style="display:none;position:absolute;top:-2px;right:-2px;width:12px;height:12px;border-radius:50%;background:#e63946;border:2px solid var(--cream);"></span>
+    </div>
+    <a href="#" class="nav-logo">СВЕТ<em>лица</em></a>
+    <button id="guest-login-btn" class="guest-login-btn" style="display:none;" onclick="openAuthOverlay()">Войти</button>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">О студии</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#trainers">Тренеры</a></li>
+    <li><button class="nav-link-btn" onclick="openSchedulePage()">Расписание</button></li>
+    <li><a href="#abonnements">Абонементы</a></li>
+    <li><button class="nav-link-btn nav-cta" onclick="openSchedulePage()">Записаться</button></li>
+  </ul>
+</nav>
+
+<!-- ACCOUNT MENU -->
+<div id="account-menu">
+  <div class="account-menu-header">
+    <div class="account-avatar-big" id="account-avatar-big">П</div>
+    <div>
+      <div class="account-menu-name" id="account-name">Пользователь</div>
+      <div class="account-menu-email" id="account-email-display">—</div>
+    </div>
+  </div>
+  <button class="account-menu-item" onclick="openProfile()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    Мой профиль
+  </button>
+  <button class="account-menu-item" onclick="openMyBookingsModal()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Мои записи
+  </button>
+  <button class="account-menu-item" onclick="openChatPanel()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Чат с администратором
+  </button>
+  <div class="account-menu-divider"></div>
+  <button class="account-menu-item danger" id="logout-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Выйти
+  </button>
+</div>
+
+<!-- PROMO -->
+<div class="promo-strip">Акция «Приведи подругу» — <strong>−500₽</strong> на следующий абонемент</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <span class="hero-eyebrow">г. Новосибирск · Микрорайон Горский</span>
+    <h1 class="hero-title">Пространство,<br>где ты<br><span class="accent">знакомишься</span><br>с собой</h1>
+    <p class="hero-sub">и наполняешься энергией жизни</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Йога</span><span class="hero-tag">Пилатес</span>
+      <span class="hero-tag">Танцы</span><span class="hero-tag">Зумба</span>
+      <span class="hero-tag">Мастерская</span>
+    </div>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="openSchedulePage()">Записаться →</button>
+      <button class="btn-outline" onclick="openSchedulePage()">Расписание</button>
+    </div>
+  </div>
+  <div class="hero-right" id="hero-img-wrap">
+    <img id="hero-img" src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=1000&q=85" alt="Студия СВЕТлица">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid reveal">
+    <div class="about-photos">
+      <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=900&q=80" alt="Зал студии">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80" alt="Йога">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Атмосфера">
+    </div>
+    <div class="about-body">
+      <span class="section-eyebrow">О студии</span>
+      <h2 class="section-title">Меня зовут<br>Светлана</h2>
+      <p>Клинический психолог, инструктор по йоге, практик метода «Матрица Души». В 45 лет я решила создать СВЕТлицу с нуля — пространство, где можно отдохнуть от внешней суеты и заглянуть в себя.</p>
+      <div class="about-quote">«Делай своё дело с душой — и люди обязательно придут на твою энергию»</div>
+      <p>Здесь домашняя, тёплая, уютная обстановка, где важен сам человек — его внутренний мир.</p>
+      <div class="founder-badge">
+        <div class="founder-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div>
+          <div class="founder-name">Светлана</div>
+          <div class="founder-role">Основатель · Психолог · Инструктор по йоге</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLACK BANNER 1 -->
+<div class="black-banner">
+  <div class="black-banner-text">
+    <span class="black-banner-eyebrow">Первый шаг</span>
+    <h2 class="black-banner-title">Попробуй бесплатно — первое занятие в подарок</h2>
+    <p class="black-banner-sub">Запишитесь на пробное занятие любого направления. Никаких обязательств — просто приходите и почувствуйте атмосферу СВЕТлицы.</p>
+  </div>
+  <button class="black-banner-btn" onclick="openSchedulePage()" style="border:none;cursor:pointer;">Записаться на пробное →</button>
+</div>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <span class="section-eyebrow">Что вы получите</span>
+  <h2 class="section-title">Зачем приходить<br>в СВЕТлицу</h2>
+  <div class="why-grid reveal reveal-stagger">
+    <div class="why-item reveal-child reveal"><div class="why-num">01</div><div class="why-heading">Снять физическое напряжение</div><div class="why-desc">Почувствовать тело, его желания и потребности — через движение и осознанную практику.</div></div>
+    <div class="why-item reveal-child reveal"><div class="why-num">02</div><div class="why-heading">Вернуть себе своё внимание</div><div class="why-desc">Убрать внешний шум, познакомиться с собой. Камерная атмосфера, где важен каждый гость.</div></div>
+    <div class="why-item reveal-child reveal"><div class="why-num">03</div><div class="why-heading">Напитаться энергией через танец</div><div class="why-desc">Услышать ритмы своего тела, вернуть плавность и лёгкость в каждое движение.</div></div>
+    <div class="why-item reveal-child reveal"><div class="why-num">04</div><div class="why-heading">Насладиться сотворчеством</div><div class="why-desc">Мастер-классы и творческие встречи — пространство для вдохновения и самовыражения.</div></div>
+    <div class="why-item reveal-child reveal"><div class="why-num">05</div><div class="why-heading">Найти единомышленников</div><div class="why-desc">Людей, которые рядом с тобой по духу. Тёплое сообщество, где принимают такой, какая ты есть.</div></div>
+    <div class="why-item reveal-child reveal"><div class="why-num">06</div><div class="why-heading">Перезагрузить душу и тело</div><div class="why-desc">Обязательно с чаепитием в конце занятия — это уже традиция СВЕТлицы.</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div>
+      <span class="section-eyebrow">Направления</span>
+      <h2 class="section-title">Групповые занятия</h2>
+    </div>
+    <button class="btn-primary" onclick="openSchedulePage()">Записаться →</button>
+  </div>
+  <div class="services-grid reveal reveal-stagger">
+    <div class="service-card reveal-child reveal tilt-card">
+      <svg class="service-icon-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="10" r="3.5"/><path d="M20 14v10M14 18l-6 4M26 18l6 4M17 24l-3 8M23 24l3 8"/></svg>
+      <div class="service-name">Йога</div>
+      <div class="service-desc">Хатха-йога, нидра-йога, утренние практики. Для любого уровня подготовки — от новичка до практикующего.</div>
+    </div>
+    <div class="service-card reveal-child reveal tilt-card">
+      <svg class="service-icon-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="9" r="3.5"/><path d="M20 13v8M12 20c2 2 5 4 8 5s6-1 8-5M14 28l2 6M26 28l-2 6"/></svg>
+      <div class="service-name">Восточные танцы</div>
+      <div class="service-desc">Зумба и восточные танцы — заряд энергии и радости. Развивает пластику, координацию и уверенность в себе.</div>
+    </div>
+    <div class="service-card reveal-child reveal tilt-card">
+      <svg class="service-icon-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h24M14 14l-6 6 6 6M26 14l6 6-6 6"/><circle cx="20" cy="20" r="3"/></svg>
+      <div class="service-name">Фитнес · Пилатес</div>
+      <div class="service-desc">Здоровое тело, правильная осанка, укреплённый корсет. Занятия подходят для всех возрастов.</div>
+    </div>
+    <div class="service-card reveal-child reveal tilt-card">
+      <svg class="service-icon-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 28c2-6 4-10 8-12s8 0 10 4M10 22l6-8M30 18l-4 8M20 10v4"/><circle cx="20" cy="8" r="2.5"/></svg>
+      <div class="service-name">Творческая мастерская</div>
+      <div class="service-desc">Творческие встречи и мастер-классы для раскрытия себя. Живопись, арт-практики — для тех, кто давно хотел попробовать.</div>
+    </div>
+  </div>
+  <div class="ind-section">
+    <span class="section-eyebrow">Индивидуально</span>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:var(--dark);margin-bottom:0;line-height:1.1;">Личные практики</h3>
+    <div class="individual-services reveal reveal-stagger">
+      <div class="ind-card reveal-child reveal"><span class="ind-label">Психология</span><div class="ind-name">Матрица Души</div><div class="ind-desc">Консультация психолога по методу «Матрица Души». Глубокая работа с вашим внутренним пространством.</div><div class="ind-price">По запросу</div></div>
+      <div class="ind-card reveal-child reveal"><span class="ind-label">Звукотерапия</span><div class="ind-name">Вибрационный массаж</div><div class="ind-desc">Индивидуальный сеанс с непальскими чашами. Глубокая перезагрузка через звук и вибрацию.</div><div class="ind-price">2 900 ₽ <span style="font-size:14px;color:#6A6460;">/ 60 мин</span></div></div>
+      <div class="ind-card reveal-child reveal"><span class="ind-label">Дети</span><div class="ind-name">Детские занятия</div><div class="ind-desc">Творческое развитие и физическая активность для детей. Уютная атмосфера и профессиональный подход.</div><div class="ind-price">По запросу</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section class="trainers-section" id="trainers">
+  <span class="section-eyebrow">Наша команда</span>
+  <h2 class="section-title">Преподаватели</h2>
+  <p style="color:var(--mid);font-size:15px;max-width:520px;margin-top:-10px;margin-bottom:0;">Профессиональные тренеры с душой — каждый со своей историей и подходом.</p>
+  <div class="trainers-carousel-wrap">
+    <div class="trainers-carousel" id="trainers-carousel">
+
+      <div class="trainer-card reveal-child reveal tilt-card">
+        <div class="trainer-photo-wrap">
+          <img class="trainer-photo" src="photos/anastasia.png" alt="Анастасия Плотникова">
+          <div class="trainer-photo-overlay"></div>
+          <span class="trainer-tag-over">Йога · Здоровая спина</span>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Анастасия Плотникова</div>
+          <div class="trainer-desc">В прошлом спортивная гимнастка, сегодня — преподаватель йоги. Обучалась у Артёма Фролова и Елены Ульмасбаевой. Практика про гибкость, здоровую спину и внутреннее спокойствие.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal-child reveal tilt-card">
+        <div class="trainer-photo-wrap">
+          <img class="trainer-photo" src="photos/viktoria.jpg" alt="Виктория Буничева">
+          <div class="trainer-photo-overlay"></div>
+          <span class="trainer-tag-over">Восточные танцы</span>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Виктория Буничева</div>
+          <div class="trainer-desc">14 лет в восточном танце, 3 года преподаёт. Призёр конкурсов, ученица известных мастеров. Помогает почувствовать красоту своего тела через движение, ритм и поддержку.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal-child reveal tilt-card">
+        <div class="trainer-photo-wrap">
+          <img class="trainer-photo" src="photos/elena.jpeg" alt="Елена Янченко">
+          <div class="trainer-photo-overlay"></div>
+          <span class="trainer-tag-over">Хатха-йога</span>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Елена Янченко</div>
+          <div class="trainer-desc">Преподаватель хатха-йоги с глубоким пониманием практики. Занятия направлены на осознанное движение, укрепление тела и внутренний баланс.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal-child reveal tilt-card">
+        <div class="trainer-photo-wrap">
+          <img class="trainer-photo" src="photos/marina.jpg" alt="Марина">
+          <div class="trainer-photo-overlay"></div>
+          <span class="trainer-tag-over">Зумба · Леди Латино</span>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Марина</div>
+          <div class="trainer-desc">Преподаватель Леди Латино, руководитель Ансамбля «Фейерверк». Занятия с Мариной — это радость движения, энергия и танец как способ жизни.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal-child reveal tilt-card">
+        <div class="trainer-mono-wrap">
+          <div class="trainer-mono-ring"></div>
+          <div class="trainer-mono">С</div>
+          <div class="trainer-photo-overlay"></div>
+          <span class="trainer-tag-over">Здоровое тело</span>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Гладкова Светлана</div>
+          <div class="trainer-desc">Комплекс упражнений йога-фитнес с массажным роллом, мячом и ремнём. Прошла обучение в институте БОДХИ, ознакомлена с биомеханикой тела, философией йоги и методикой проведения занятий.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal-child reveal tilt-card">
+        <div class="trainer-photo-wrap">
+          <img class="trainer-photo" src="photos/tatyana.jpg" alt="Татьяна Орехова">
+          <div class="trainer-photo-overlay"></div>
+          <span class="trainer-tag-over">Хай-Хилз · Вейвинг · Танго</span>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Татьяна Орехова</div>
+          <div class="trainer-desc">Танцует более 10 лет: хай-хилз, танго, паппинг, вэйвинг и другие стили. Прошла обучение High Heels у Татьяны Максаковой, участница чемпионатов get high и connect_dance_events.</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-nav-btn" id="trainer-prev" onclick="trainerCarouselNav(-1)">&#8592;</button>
+      <div class="carousel-dots" id="trainer-dots"></div>
+      <button class="carousel-nav-btn" id="trainer-next" onclick="trainerCarouselNav(1)">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE SECTION (preview, full in overlay) -->
+<section class="schedule" id="schedule">
+  <span class="section-eyebrow">Расписание</span>
+  <h2 class="section-title">Расписание занятий</h2>
+  <div class="schedule-meta">
+    <span class="schedule-meta-item"><span class="dot"></span>Стандартное занятие — 60 минут</span>
+    <span class="schedule-meta-item"><span class="dot"></span>Запись и отмена — через сайт, личный кабинет</span>
+    <span class="schedule-meta-item"><span class="dot"></span>Отменить запись можно не позднее, чем за 2 часа до начала</span>
+    <span class="schedule-meta-item"><span class="dot"></span>Оплата — у администратора</span>
+  </div>
+  <div class="month-nav" id="section-month-nav">
+    <div class="month-nav-title" id="section-month-title"></div>
+    <div class="month-nav-btns">
+      <button class="month-nav-btn" onclick="sectionMonthChange(-1)">&#8592;</button>
+      <button class="month-nav-btn" onclick="sectionMonthChange(1)">&#8594;</button>
+    </div>
+  </div>
+  <div class="month-calendar" id="section-calendar"></div>
+  <div class="schedule-list" id="section-schedule-list"></div>
+  <div style="margin-top:32px;text-align:center;">
+    <button class="btn-primary" onclick="openSchedulePage()">Открыть полное расписание →</button>
+  </div>
+</section>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="booking-modal-close">×</button>
+    <div class="modal-title" id="booking-modal-title"></div>
+    <div class="modal-sub" id="booking-modal-sub"></div>
+    <div class="modal-row"><span>Дата</span><strong id="bm-date"></strong></div>
+    <div class="modal-row"><span>Время</span><strong id="bm-time"></strong></div>
+    <div class="modal-row"><span>Длительность</span><strong id="bm-dur"></strong></div>
+    <div class="modal-row"><span>Стоимость</span><strong id="bm-price"></strong></div>
+    <div class="modal-actions" id="booking-modal-actions"></div>
+    <div class="modal-msg" id="booking-modal-msg"></div>
+  </div>
+</div>
+
+<!-- PURCHASE MODAL -->
+<div class="modal-overlay" id="purchase-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="purchase-modal-close">×</button>
+    <div class="modal-title">Оплата абонемента</div>
+    <div class="modal-sub" id="purchase-modal-sub"></div>
+    <div class="modal-actions" style="flex-direction:column;gap:10px;">
+      <a class="auth-submit" style="display:block;text-decoration:none;text-align:center;" target="_blank" href="https://t.me/cvetlicabot">Оплатить через Telegram-бота</a>
+      <a class="modal-cancel-btn" style="display:block;text-decoration:none;text-align:center;" target="_blank" href="https://t.me/svet_matrix">Оплатить в студии / есть вопрос</a>
+    </div>
+    <p style="margin-top:10px;font-size:11px;color:var(--light-text);text-align:center;">Если бот не отвечает — напишите напрямую Свете, она поможет 🙂</p>
+    <p style="margin-top:18px;font-size:12px;color:var(--mid);line-height:1.5;">
+      🎁 Приведи подругу — и получи скидку <strong>500 ₽</strong> на следующий абонемент!<br>
+      По всем вопросам пишите Свете: <a href="https://t.me/svet_matrix" target="_blank" style="color:var(--gold);font-weight:600;">@svet_matrix</a>
+    </p>
+  </div>
+</div>
+
+<!-- MY BOOKINGS MODAL -->
+<div class="modal-overlay" id="mybookings-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="mybookings-modal-close">×</button>
+    <div class="modal-title">Мои записи</div>
+    <div class="modal-sub">Отменить занятие можно не позднее, чем за 2 часа до начала</div>
+    <div class="mybookings-list" id="mybookings-list"></div>
+  </div>
+</div>
+
+<!-- ABONNEMENTS -->
+<section class="abonnements" id="abonnements">
+  <span class="section-eyebrow">Абонементы</span>
+  <h2 class="section-title">Выгоднее, чем разово</h2>
+  <p class="sub-text">Один абонемент действует на 7 направлений (летнее предложение 2026): Йога, Пилатес, Стретчинг, Здоровое тело, Восточные танцы, Зумба, Хай-Хилз без каблуков</p>
+  <div class="ab-grid reveal reveal-stagger" id="ab-grid">
+    <div class="ab-card reveal-child reveal tilt-card" data-delay="0">
+      <div class="ab-badge">Старт</div><div class="ab-count">4 занятия</div>
+      <div class="ab-price"><sup>₽</sup>2 800</div><div class="ab-period">Действует 30 дней</div>
+      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li></ul>
+      <button class="ab-btn" onclick="openPurchaseModal('Старт — 4 занятия, 2 800₽')">Купить абонемент</button>
+    </div>
+    <div class="ab-card reveal-child reveal tilt-card featured" data-delay="120">
+      <div class="ab-badge">Популярный</div><div class="ab-count">8 занятий</div>
+      <div class="ab-price"><sup>₽</sup>5 200</div><div class="ab-period">Действует 30 дней</div>
+      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 400₽</li></ul>
+      <button class="ab-btn" onclick="openPurchaseModal('Популярный — 8 занятий, 5 200₽')">Купить абонемент</button>
+    </div>
+    <div class="ab-card reveal-child reveal tilt-card" data-delay="240">
+      <div class="ab-badge">Безлимит</div><div class="ab-count">12 занятий</div>
+      <div class="ab-price"><sup>₽</sup>7 200</div><div class="ab-period">Действует 30 дней</div>
+      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 1 200₽</li></ul>
+      <button class="ab-btn" onclick="openPurchaseModal('Безлимит — 12 занятий, 7 200₽')">Купить абонемент</button>
+    </div>
+  </div>
+  <div class="ab-promo">
+    <svg class="ab-promo-glyph" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 4l2.5 7.5H28l-6.5 4.5 2.5 7.5L18 19l-6 4.5 2.5-7.5L8 11.5h7.5z"/></svg>
+    <span>Приведи подругу — получи <strong>−500₽</strong> на следующий абонемент. Просто напиши нам при записи!</span>
+  </div>
+</section>
+
+<!-- BLACK BANNER 2 -->
+<div class="black-banner">
+  <div class="black-banner-text">
+    <span class="black-banner-eyebrow">Сообщество</span>
+    <h2 class="black-banner-title">Следите за нами в Telegram</h2>
+    <p class="black-banner-sub">Расписание, анонсы мастер-классов, вдохновляющие материалы и специальные предложения только для подписчиков.</p>
+  </div>
+  <a href="https://t.me/+79139003478" target="_blank" class="black-banner-btn">Подписаться →</a>
+</div>
+
+<!-- ATMOSPHERE -->
+<!-- GALLERY / NEWS -->
+<section class="atmosphere" id="gallery" style="display:none;">
+  <span class="section-eyebrow">Новости</span>
+  <h2 class="section-title">Фото и новости студии</h2>
+  <div class="atm-grid" id="gallery-grid"></div>
+</section>
+
+<section class="atmosphere" id="atmosphere">
+  <span class="section-eyebrow">Атмосфера</span>
+  <h2 class="section-title">Атмосфера дома</h2>
+  <div class="atm-grid reveal reveal-stagger">
+    <div class="atm-cell reveal-child reveal"><img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?w=900&q=80" alt="Основной зал"><div class="atm-caption">Основной зал</div></div>
+    <div class="atm-cell reveal-child reveal"><img src="https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?w=600&q=80" alt="Йога"><div class="atm-caption">Йога-практика</div></div>
+    <div class="atm-cell reveal-child reveal"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Занятие"><div class="atm-caption">Групповые занятия</div></div>
+    <div class="atm-cell reveal-child reveal"><img src="https://images.unsplash.com/photo-1602192508735-be7ae866e1b3?w=600&q=80" alt="Творчество"><div class="atm-caption">Творческая мастерская</div></div>
+    <div class="atm-cell reveal-child reveal"><img src="https://images.unsplash.com/photo-1556910110-6bd4bd38d64b?w=600&q=80" alt="Чаепитие"><div class="atm-caption">Чаепитие</div></div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="contacts" id="contacts">
+  <span class="section-eyebrow">Контакты</span>
+  <h2 class="section-title">Как нас найти</h2>
+  <div class="contacts-grid reveal">
+    <div>
+      <div class="contact-block"><div class="contact-label">Адрес</div><div class="contact-value">г. Новосибирск</div><div class="contact-sub">Микрорайон Горский, 63/1</div></div>
+      <div class="contact-block"><div class="contact-label">Режим работы</div><div class="contact-value">09:00 — 21:00</div><div class="contact-sub">Ежедневно · По предварительной записи</div></div>
+      <div class="contact-block"><div class="contact-label">Телефон</div><div class="contact-value">8 913 900 34 78</div></div>
+      <div class="social-buttons">
+        <a href="https://t.me/+79139003478?text=Добрый+день.+Хочу+записаться+на+занятие" target="_blank" class="social-btn"><span>Telegram</span><span>→</span></a>
+        <a href="https://vk.com" target="_blank" class="social-btn"><span>ВКонтакте</span><span>→</span></a>
+        <button class="btn-primary" onclick="openSchedulePage()" style="justify-content:center;margin-top:4px;border:none;cursor:pointer;width:100%;">Записаться на занятие →</button>
+      </div>
+    </div>
+    <div>
+      <div class="map-container">
+        <div class="map-pin">📍</div>
+        <span>Микрорайон Горский, 63/1<br>Новосибирск</span>
+      </div>
+      <a href="https://yandex.ru/maps/?text=Новосибирск+Микрорайон+Горский+63/1" target="_blank" class="map-link">Открыть на Яндекс Картах →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">СВЕТ<em>лица</em></div>
+    <div class="footer-copy">© 2026 Студия «СВЕТлица» · <span style="cursor:pointer;color:rgba(255,255,255,0.2);" onclick="openAdminLogin()" title="Панель администратора">●●●</span></div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Политика конфиденциальности</a>
+    <a href="#">Договор оферты</a>
+  </div>
+</footer>
+
+</div><!-- /main-content -->
+
+<!-- SCHEDULE PAGE OVERLAY -->
+<div id="schedule-page">
+  <div class="schedule-page-header">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;">Расписание занятий</div>
+    <button class="panel-close" onclick="closeSchedulePage()">×</button>
+  </div>
+  <div class="schedule-page-body">
+    <div class="schedule-meta" style="margin-bottom:32px;">
+      <span class="schedule-meta-item"><span class="dot"></span>Стандартное занятие — 60 минут</span>
+      <span class="schedule-meta-item"><span class="dot"></span>Отмена не позднее чем за 2 часа до начала</span>
+    </div>
+    <div class="month-nav">
+      <div class="month-nav-title" id="page-month-title"></div>
+      <div class="month-nav-btns">
+        <button class="month-nav-btn" onclick="pageMonthChange(-1)">&#8592;</button>
+        <button class="month-nav-btn" onclick="pageMonthChange(1)">&#8594;</button>
+      </div>
+    </div>
+    <div class="month-calendar" id="page-calendar"></div>
+    <div class="schedule-list" id="page-schedule-list"></div>
+  </div>
+</div>
+
+<!-- PROFILE PANEL -->
+<div id="profile-panel">
+  <div class="profile-header">
+    <div class="profile-header-title">Мой профиль</div>
+    <button class="panel-close" onclick="closeProfile()">×</button>
+  </div>
+  <div class="profile-body">
+    <div class="profile-hero">
+      <div class="profile-avatar" id="profile-avatar-big">П</div>
+      <div class="profile-hero-info">
+        <h2 id="profile-name-big">Пользователь</h2>
+        <p id="profile-email-big">—</p>
+      </div>
+    </div>
+    <div class="profile-stats">
+      <div class="profile-stat"><div class="profile-stat-num" id="stat-upcoming">0</div><div class="profile-stat-label">Предстоящих занятий</div></div>
+      <div class="profile-stat"><div class="profile-stat-num" id="stat-total">0</div><div class="profile-stat-label">Всего записей</div></div>
+      <div class="profile-stat"><div class="profile-stat-num" id="stat-fav">—</div><div class="profile-stat-label">Любимое направление</div></div>
+    </div>
+    <div class="profile-tabs">
+      <button class="profile-tab active" onclick="showProfileTab('upcoming')">Предстоящие</button>
+      <button class="profile-tab" onclick="showProfileTab('past')">История</button>
+    </div>
+    <div class="profile-bookings-list" id="profile-bookings-list"></div>
+  </div>
+</div>
+
+<!-- CHAT BUTTON -->
+<button id="chat-btn" onclick="toggleChatPanel()" style="display:none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="chat-badge" id="chat-badge">1</span>
+</button>
+
+<!-- CHAT PANEL -->
+<div id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-admin-avatar">С</div>
+      <div>
+        <div class="chat-admin-name">Светлана</div>
+        <div class="chat-admin-status">Администратор студии</div>
+      </div>
+    </div>
+    <button class="chat-close-btn" onclick="toggleChatPanel()">×</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-empty" id="chat-empty">Задайте любой вопрос — мы ответим в ближайшее время!</div>
+  </div>
+  <div class="chat-input-row">
+    <textarea class="chat-input" id="chat-input" placeholder="Написать сообщение..." rows="1" onkeydown="handleChatKey(event)"></textarea>
+    <button class="chat-send-btn" onclick="sendChatMessage()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  SCHEDULE DATA
+// ═══════════════════════════════════════════════════════
+const DAY_NAMES = ['','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+const DAY_SHORT = ['','Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const RU_MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+const RU_MONTHS_GEN = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+
+const CLASSES = [
+  // Понедельник
+  { id:'yoga-mon-1', name:'Йога',                  day:1, time:'09:00', dur:60, price:'по абонементу', trainer:'Анастасия Плотникова', trainerTag:'Хатха йога',  level:'Базовый',  capacity:5 },
+  { id:'yoga-mon-2', name:'Йога',                  day:1, time:'18:00', dur:60, price:'по абонементу', trainer:'Анастасия Плотникова', trainerTag:'Хатха йога',  level:'Базовый',  capacity:5 },
+  { id:'str-mon',    name:'Стретчинг',             day:1, time:'19:00', dur:60, price:'по абонементу', trainer:'Татьяна Орехова',      trainerTag:'Стретчинг- мягкая растяжка всего тела', level:'Любой', capacity:5 },
+
+  // Вторник
+  { id:'fit-tue',    name:'Здоровое тело',         day:2, time:'18:00', dur:60, price:'по абонементу', trainer:'Светлана Гладкова',    trainerTag:'Фитнес', level:'Начинающий - базовый', capacity:5 },
+  { id:'pil-tue',    name:'Пилатес',               day:2, time:'19:00', dur:60, price:'по абонементу', trainer:'Марина',               trainerTag:'', level:'Любой', capacity:5 },
+  { id:'dance-tue',  name:'Восточные танцы',       day:2, time:'20:00', dur:60, price:'по абонементу', trainer:'Виктория Буничева',    trainerTag:'Танец- язык тела и души.', level:'Начинающий', capacity:7, openEnrollment:true },
+
+  // Среда
+  { id:'yoga-wed-1', name:'Йога',                  day:3, time:'10:30', dur:60, price:'по абонементу', trainer:'Анна Сальникова',      trainerTag:'', level:'Начинающий - базовый', capacity:5 },
+  { id:'str-wed',    name:'Стретчинг',             day:3, time:'19:00', dur:60, price:'по абонементу', trainer:'Татьяна Орехова',      trainerTag:'Стретчинг- мягкая растяжка всего тела', level:'Любой', capacity:5 },
+
+  // Четверг
+  { id:'fit-thu',    name:'Здоровое тело',         day:4, time:'18:00', dur:60, price:'по абонементу', trainer:'Светлана Гладкова',    trainerTag:'На занятиях используются массажные роллы, ремешки, мячики', level:'Базовый', capacity:5 },
+  { id:'pil-thu',    name:'Пилатес',               day:4, time:'19:00', dur:60, price:'по абонементу', trainer:'Марина',               trainerTag:'Занятия направлено на осознанную технику движения.', level:'Базовый', capacity:5 },
+  { id:'zumba-thu',  name:'Зумба',                 day:4, time:'20:00', dur:60, price:'по абонементу', trainer:'Марина',               trainerTag:'Танец- язык тела. Цель занятия, получить удовольствие.', level:'Начинающий', capacity:7 },
+
+  // Пятница — без занятий
+
+  // Суббота
+  { id:'yoga-sat',   name:'Йога',                  day:6, time:'09:30', dur:60, price:'по абонементу', trainer:'Анастасия Плотникова', trainerTag:'Хатха йога', level:'Базовый', capacity:5 },
+
+  // Воскресенье
+  { id:'dance-sun',  name:'Восточные танцы',       day:7, time:'15:00', dur:60, price:'по абонементу', trainer:'Виктория Буничева',    trainerTag:'Танец- язык тела и души.', level:'Начинающий', capacity:7, openEnrollment:true },
+  { id:'heel-sun',   name:'Хай-Хилз без каблуков', day:7, time:'16:00', dur:60, price:'по абонементу', trainer:'Татьяна Орехова',      trainerTag:'', level:'Любой', capacity:7 },
+  { id:'yoga-sun',   name:'Йога + Нидра-йога',     day:7, time:'19:00', dur:90, price:'по абонементу', trainer:'Анастасия Плотникова', trainerTag:'90 мин Хатха йога, затем Нидра йога расслабления под поющие чаши', level:'Любой', capacity:5 },
+];
+
+// ═══════════════════════════════════════════════════════
+//  STORAGE
+// ═══════════════════════════════════════════════════════
+const BOOKINGS_KEY = 'svetlica_bookings_v2';
+const CHAT_KEY = 'svetlica_chat_v2';
+const ADMIN_CHATS_KEY = 'svetlica_admin_chats_v2';
+
+function getBookings() { try { return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || []; } catch(e){ return []; } }
+function saveBookings(arr) { localStorage.setItem(BOOKINGS_KEY, JSON.stringify(arr)); if (window._fsSet) window._fsSet('bookings', arr); }
+function getChats() { try { return JSON.parse(localStorage.getItem(CHAT_KEY)) || []; } catch(e){ return []; } }
+function saveChats(arr) { localStorage.setItem(CHAT_KEY, JSON.stringify(arr)); }
+function getAdminChats() { try { return JSON.parse(localStorage.getItem(ADMIN_CHATS_KEY)) || {}; } catch(e){ return {}; } }
+function saveAdminChats(obj) { localStorage.setItem(ADMIN_CHATS_KEY, JSON.stringify(obj)); if (window._fsSet) window._fsSet('adminChats', obj); }
+// Пользовательские занятия
+const CUSTOM_CLASSES_KEY = 'svetlica_custom_classes';
+function getCustomClasses() { try { return JSON.parse(localStorage.getItem(CUSTOM_CLASSES_KEY)) || []; } catch(e){ return []; } }
+function saveCustomClasses(arr) { localStorage.setItem(CUSTOM_CLASSES_KEY, JSON.stringify(arr)); if (window._fsSet) window._fsSet('customClasses', arr); }
+
+// ── GALLERY / NEWS ──
+const GALLERY_KEY = 'svetlica_gallery';
+function getGallery() { try { return JSON.parse(localStorage.getItem(GALLERY_KEY)) || []; } catch(e){ return []; } }
+function saveGallery(arr) { localStorage.setItem(GALLERY_KEY, JSON.stringify(arr)); if (window._fsSet) window._fsSet('gallery', arr); }
+
+function renderGallery() {
+  const items = getGallery();
+  const section = document.getElementById('gallery');
+  const grid = document.getElementById('gallery-grid');
+  if (!items.length) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  grid.innerHTML = '';
+  items.slice().reverse().forEach((item, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'atm-cell' + (item.caption ? ' has-caption' : '');
+    if (i === 0) cell.style.gridColumn = '1 / 3';
+    if (i === 0) cell.style.gridRow = '1 / 3';
+    cell.innerHTML = `<img src="${item.image}" alt="">${item.caption ? `<div class="gallery-public-cap">${item.caption}</div>` : ''}`;
+    grid.appendChild(cell);
+  });
+}
+
+function renderAdminGallery() {
+  const list = document.getElementById('admin-gallery-list');
+  if (!list) return;
+  const items = getGallery();
+  list.innerHTML = items.length ? '' : '<p style="color:rgba(255,255,255,0.4);font-size:13px;">Пока нет фото</p>';
+  items.slice().reverse().forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'gallery-admin-item';
+    el.innerHTML = `<img src="${item.image}" alt=""><div class="gai-cap">${item.caption || '<i>без текста</i>'}</div><button class="gai-del">Удалить</button>`;
+    el.querySelector('.gai-del').addEventListener('click', () => {
+      saveGallery(getGallery().filter(g => g.id !== item.id));
+      renderAdminGallery(); renderGallery();
+    });
+    list.appendChild(el);
+  });
+}
+
+function addGalleryItem() {
+  const fileInput = document.getElementById('gallery-file-input');
+  const caption = document.getElementById('gallery-caption-input').value.trim();
+  const errEl = document.getElementById('gallery-error');
+  errEl.textContent = '';
+  const file = fileInput.files[0];
+  if (!file) { errEl.textContent = 'Выберите файл с фото'; return; }
+  const img = new Image();
+  const reader = new FileReader();
+  reader.onload = e => {
+    img.onload = () => {
+      const maxW = 1200;
+      const scale = Math.min(1, maxW / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+      const items = getGallery();
+      items.push({ id: 'g-' + Date.now(), image: dataUrl, caption, createdAt: Date.now() });
+      saveGallery(items);
+      fileInput.value = '';
+      document.getElementById('gallery-caption-input').value = '';
+      renderAdminGallery(); renderGallery();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function switchAdminTab(tab) {
+  document.getElementById('admin-tab-chats').classList.toggle('active', tab === 'chats');
+  document.getElementById('admin-tab-gallery').classList.toggle('active', tab === 'gallery');
+  document.getElementById('admin-body-chats').style.display = tab === 'chats' ? 'flex' : 'none';
+  document.getElementById('admin-body-gallery').style.display = tab === 'gallery' ? 'flex' : 'none';
+  if (tab === 'gallery') renderAdminGallery();
+}
+
+// ═══════════════════════════════════════════════════════
+//  USER STATE
+// ═══════════════════════════════════════════════════════
+let currentUser = null; // { uid, email, displayName }
+
+function getUserKey() { return currentUser ? (currentUser.displayName || currentUser.email) : null; }
+function getUserId() { return currentUser ? currentUser.uid : null; }
+
+// ═══════════════════════════════════════════════════════
+//  DATE HELPERS
+// ═══════════════════════════════════════════════════════
+function dateKey(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function formatDate(d) {
+  return d.getDate() + ' ' + RU_MONTHS_GEN[d.getMonth()];
+}
+function isoWeekday(d) { return d.getDay() === 0 ? 7 : d.getDay(); }
+function getCatColor(name) {
+  if (name.includes('Йога')) return '#8FAE8B';
+  if (name.includes('Пилатес')) return '#9FB8D9';
+  if (name.includes('Стретчинг')) return '#C9A7E0';
+  if (name.includes('Здоровое')) return '#E0B15C';
+  if (name.includes('Танц')) return '#E0879A';
+  if (name.includes('Зумба')) return '#7FC9C0';
+  if (name.includes('Хай-Хилз')) return '#E0879A';
+  return 'var(--gold)';
+}
+function occurrenceForDate(cls, targetDate) {
+  // Returns a Date for a class at targetDate (if correct weekday)
+  const wd = isoWeekday(targetDate);
+  if (wd !== cls.day) return null;
+  const [h,m] = cls.time.split(':').map(Number);
+  const d = new Date(targetDate);
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+// ═══════════════════════════════════════════════════════
+//  CALENDAR RENDERING
+// ═══════════════════════════════════════════════════════
+let sectionViewMonth = new Date();
+sectionViewMonth.setDate(1);
+let pageViewMonth = new Date();
+pageViewMonth.setDate(1);
+let sectionSelectedDate = null;
+let pageSelectedDate = null;
+
+function renderCalendar(containerId, viewMonth, selectedDate, onClickDay) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  const headers = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  headers.forEach(h => {
+    const el = document.createElement('div');
+    el.className = 'cal-header';
+    el.textContent = h;
+    container.appendChild(el);
+  });
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const year = viewMonth.getFullYear();
+  const month = viewMonth.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month+1, 0);
+  const startWd = isoWeekday(firstDay); // 1=Mon
+
+  // Empty cells before first day
+  for (let i = 1; i < startWd; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day cal-day-empty';
+    container.appendChild(el);
+  }
+
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const date = new Date(year, month, d);
+    date.setHours(0,0,0,0);
+    const wd = isoWeekday(date);
+    const hasClasses = CLASSES.some(c => c.day === wd);
+    const isPast = date < today;
+
+    const el = document.createElement('div');
+    el.className = 'cal-day' + (isPast ? ' cal-day-past' : '') + (date.getTime() === today.getTime() ? ' cal-day-today' : '');
+    if (selectedDate && date.toDateString() === selectedDate.toDateString()) el.classList.add('cal-day-active');
+
+    const numEl = document.createElement('span');
+    numEl.className = 'cal-day-num';
+    numEl.textContent = d;
+    el.appendChild(numEl);
+
+    if (hasClasses) {
+      const dots = document.createElement('div');
+      dots.className = 'cal-day-dots';
+      const clsCount = CLASSES.filter(c => c.day === wd).length;
+      for (let i = 0; i < Math.min(clsCount, 4); i++) {
+        const dot = document.createElement('div');
+        dot.className = 'cal-dot';
+        dots.appendChild(dot);
+      }
+      el.appendChild(dots);
+    }
+
+    if (!isPast && hasClasses) {
+      el.addEventListener('click', () => onClickDay(date));
+    }
+    container.appendChild(el);
+  }
+}
+
+function renderScheduleForDate(listId, date) {
+  const list = document.getElementById(listId);
+  if (!list) return;
+  list.innerHTML = '';
+  if (!date) {
+    list.innerHTML = '<div class="schedule-empty">Выберите дату в календаре</div>';
+    return;
+  }
+  const wd = isoWeekday(date);
+  const items = CLASSES.filter(c => c.day === wd);
+  
+  // Добавляем пользовательские занятия
+  const customClasses = getCustomClasses();
+  const dateStr = dateKey(date);
+  const customForDate = customClasses.filter(c => c.dateKey === dateStr);
+  
+  if (!items.length && !customForDate.length) {
+    list.innerHTML = '<div class="schedule-empty">В этот день занятий нет</div>';
+  } else {
+    const userKey = getUserKey();
+    const bookings = getBookings();
+
+    items.forEach(c => {
+      const occ = occurrenceForDate(c, date);
+      if (!occ) return;
+      const dKey = dateKey(occ);
+      const myBooking = userKey && bookings.find(b => b.userKey === userKey && b.slotId === c.id && b.dateKey === dKey);
+      const now = new Date();
+      const isPast = occ.getTime() < now.getTime();
+      const slotBookings = bookings.filter(b => b.slotId === c.id && b.dateKey === dKey);
+      const bookedCount = slotBookings.length;
+      const phoneBookings = slotBookings.filter(b => b.phoneBooking);
+      const cap = c.capacity || 5;
+      const isFull = bookedCount >= cap && !myBooking;
+
+      const catColor = getCatColor(c.name);
+      const row = document.createElement('div');
+      row.className = 'schedule-item';
+      row.style.setProperty('--cat-color', catColor);
+      const chips = [];
+      if (c.trainer) chips.push(`<span class="s-chip s-chip-trainer">👤 ${c.trainer}</span>`);
+      if (c.level) chips.push(`<span class="s-chip s-chip-level">${c.level}</span>`);
+      chips.push(`<span class="s-chip s-chip-cap${isFull ? ' full' : ''}">занято ${bookedCount}/${cap}</span>`);
+      if (c.openEnrollment) chips.push(`<span class="s-chip s-chip-open">✨ идёт набор</span>`);
+      row.innerHTML = `
+        <div class="schedule-time-badge">${c.time}<small>${c.dur} мин</small></div>
+        <div style="flex:1;min-width:180px;">
+          <div class="schedule-name">${c.name}</div>
+          <div class="schedule-chips">${chips.join('')}</div>
+          ${c.trainerTag ? `<div class="schedule-desc">${c.trainerTag}</div>` : ''}
+        </div>
+        <div class="schedule-price">${c.price.includes('₽') ? c.price : '<span class="by-sub">'+c.price+'</span>'}</div>
+      `;
+      const btn = document.createElement('button');
+      if (isPast) {
+        btn.className = 'book-btn'; btn.textContent = 'Прошло'; btn.disabled = true;
+      } else if (myBooking) {
+        btn.className = 'book-btn booked'; btn.textContent = 'Записано ✓';
+      } else if (isFull) {
+        btn.className = 'book-btn'; btn.textContent = 'Мест нет'; btn.disabled = true;
+      } else {
+        btn.className = 'book-btn'; btn.textContent = 'Записаться';
+      }
+      btn.addEventListener('click', () => !isPast && !isFull && openBookingModal(c, occ, myBooking));
+      row.appendChild(btn);
+
+      // Админские инструменты: бронь/отмена по телефону
+      if (isAdmin() && !isPast) {
+        const adminWrap = document.createElement('div');
+        adminWrap.style.cssText = 'display:flex;gap:6px;';
+        const phoneBtn = document.createElement('button');
+        phoneBtn.className = 'book-btn';
+        phoneBtn.style.cssText = 'background:var(--dark);font-size:11px;padding:10px 14px;';
+        phoneBtn.textContent = '+ по телефону';
+        phoneBtn.disabled = bookedCount >= cap;
+        phoneBtn.addEventListener('click', () => {
+          const name = prompt('Имя клиента (для брони по телефону):');
+          if (!name) return;
+          const all = getBookings();
+          all.push({
+            id: 'b-' + Date.now(), userKey: 'phone:' + name, slotId: c.id, name: c.name,
+            day: c.day, time: c.time, dur: c.dur, price: c.price,
+            dateKey: dKey, dateLabel: `${DAY_NAMES[c.day]}, ${formatDate(occ)}`,
+            startTime: occ.getTime(), phoneBooking: true, phoneName: name
+          });
+          saveBookings(all);
+          renderScheduleForDate(listId, date);
+        });
+        adminWrap.appendChild(phoneBtn);
+
+        if (phoneBookings.length) {
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'book-btn';
+          removeBtn.style.cssText = 'background:#e63946;font-size:11px;padding:10px 14px;';
+          removeBtn.textContent = '− освободить';
+          removeBtn.title = 'Удалить последнюю бронь по телефону: ' + phoneBookings[phoneBookings.length-1].phoneName;
+          removeBtn.addEventListener('click', () => {
+            const last = phoneBookings[phoneBookings.length-1];
+            saveBookings(getBookings().filter(b => b.id !== last.id));
+            renderScheduleForDate(listId, date);
+          });
+          adminWrap.appendChild(removeBtn);
+        }
+        row.appendChild(adminWrap);
+      }
+
+      list.appendChild(row);
+    });
+    
+    // Пользовательские занятия
+    customForDate.forEach(c => {
+      const occ = new Date(date);
+      const [h,m] = c.time.split(':').map(Number);
+      occ.setHours(h, m, 0, 0);
+      const dKey = dateKey(occ);
+      const myBooking = userKey && bookings.find(b => b.userKey === userKey && b.slotId === c.id && b.dateKey === dKey);
+      const now = new Date();
+      const isPast = occ.getTime() < now.getTime();
+
+      const bookedCount = bookings.filter(b => b.slotId === c.id && b.dateKey === dKey).length;
+      const row = document.createElement('div');
+      row.className = 'schedule-item';
+      row.style.borderLeft = '3px solid var(--gold)';
+      row.innerHTML = `
+        <div class="schedule-time">${c.time}</div>
+        <div>
+          <div class="schedule-name">${c.name} <span style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Доп.</span></div>
+          <div class="schedule-days">${DAY_NAMES[wd]} · ${formatDate(date)} · <span style="color:var(--gold);font-weight:500;">${c.trainer}</span>${c.level ? ' · ' + c.level : ''}${c.capacity ? ' · занято ' + bookedCount + '/' + c.capacity : ''}</div>
+        </div>
+        <div class="schedule-dur">${c.dur} мин</div>
+        <div class="schedule-price">${c.price}</div>
+        <div class="spacer"></div>
+      `;
+      const btn = document.createElement('button');
+      const isFull = c.capacity && bookedCount >= c.capacity && !myBooking;
+      if (isPast) {
+        btn.className = 'book-btn'; btn.textContent = 'Прошло'; btn.disabled = true;
+      } else if (myBooking) {
+        btn.className = 'book-btn booked'; btn.textContent = 'Записано ✓';
+      } else if (isFull) {
+        btn.className = 'book-btn'; btn.textContent = 'Мест нет'; btn.disabled = true;
+      } else {
+        btn.className = 'book-btn'; btn.textContent = 'Записаться';
+      }
+      btn.addEventListener('click', () => !isPast && !isFull && openBookingModal(c, occ, myBooking));
+      row.appendChild(btn);
+      list.appendChild(row);
+    });
+  }
+}
+
+function updateMonthTitle(titleId, viewMonth) {
+  const el = document.getElementById(titleId);
+  if (el) el.textContent = RU_MONTHS[viewMonth.getMonth()] + ' ' + viewMonth.getFullYear();
+}
+
+// Section calendar (on page)
+function initSectionCalendar() {
+  renderGallery();
+  sectionViewMonth = new Date(); sectionViewMonth.setDate(1);
+  sectionSelectedDate = new Date(); sectionSelectedDate.setHours(0,0,0,0);
+  updateMonthTitle('section-month-title', sectionViewMonth);
+  renderCalendar('section-calendar', sectionViewMonth, sectionSelectedDate, (d) => {
+    sectionSelectedDate = d;
+    renderCalendar('section-calendar', sectionViewMonth, sectionSelectedDate, arguments.callee);
+    renderScheduleForDate('section-schedule-list', sectionSelectedDate);
+  });
+  renderScheduleForDate('section-schedule-list', sectionSelectedDate);
+}
+
+function sectionMonthChange(delta) {
+  sectionViewMonth.setMonth(sectionViewMonth.getMonth() + delta);
+  sectionSelectedDate = null;
+  updateMonthTitle('section-month-title', sectionViewMonth);
+  renderCalendar('section-calendar', sectionViewMonth, sectionSelectedDate, (d) => {
+    sectionSelectedDate = d;
+    updateMonthTitle('section-month-title', sectionViewMonth);
+    renderCalendar('section-calendar', sectionViewMonth, sectionSelectedDate, arguments.callee);
+    renderScheduleForDate('section-schedule-list', sectionSelectedDate);
+  });
+  renderScheduleForDate('section-schedule-list', sectionSelectedDate);
+}
+
+// Full schedule page
+function openSchedulePage() {
+  document.getElementById('schedule-page').classList.add('open');
+  pageViewMonth = new Date(); pageViewMonth.setDate(1);
+  pageSelectedDate = new Date(); pageSelectedDate.setHours(0,0,0,0);
+  updateMonthTitle('page-month-title', pageViewMonth);
+  renderPageCalendar();
+  renderScheduleForDate('page-schedule-list', pageSelectedDate);
+}
+function closeSchedulePage() { document.getElementById('schedule-page').classList.remove('open'); }
+
+function renderPageCalendar() {
+  renderCalendar('page-calendar', pageViewMonth, pageSelectedDate, (d) => {
+    pageSelectedDate = d;
+    renderPageCalendar();
+    renderScheduleForDate('page-schedule-list', pageSelectedDate);
+  });
+}
+function pageMonthChange(delta) {
+  pageViewMonth.setMonth(pageViewMonth.getMonth() + delta);
+  pageSelectedDate = null;
+  updateMonthTitle('page-month-title', pageViewMonth);
+  renderPageCalendar();
+  renderScheduleForDate('page-schedule-list', null);
+}
+
+// Refresh both schedule views after booking changes
+function refreshScheduleViews() {
+  renderScheduleForDate('section-schedule-list', sectionSelectedDate);
+  renderScheduleForDate('page-schedule-list', pageSelectedDate);
+  renderCalendar('section-calendar', sectionViewMonth, sectionSelectedDate, (d) => { sectionSelectedDate=d; renderCalendar('section-calendar',sectionViewMonth,sectionSelectedDate,arguments.callee); renderScheduleForDate('section-schedule-list',sectionSelectedDate); });
+  renderCalendar('page-calendar', pageViewMonth, pageSelectedDate, (d) => { pageSelectedDate=d; renderPageCalendar(); renderScheduleForDate('page-schedule-list',pageSelectedDate); });
+}
+
+// ═══════════════════════════════════════════════════════
+//  BOOKING MODAL
+// ═══════════════════════════════════════════════════════
+const bModal = document.getElementById('booking-modal');
+document.getElementById('booking-modal-close').addEventListener('click', () => bModal.classList.remove('open'));
+bModal.addEventListener('click', e => { if (e.target === bModal) bModal.classList.remove('open'); });
+
+// ── PURCHASE MODAL ──
+const pModal = document.getElementById('purchase-modal');
+document.getElementById('purchase-modal-close').addEventListener('click', () => pModal.classList.remove('open'));
+pModal.addEventListener('click', e => { if (e.target === pModal) pModal.classList.remove('open'); });
+function openPurchaseModal(planLabel) {
+  document.getElementById('purchase-modal-sub').textContent = `Абонемент «${planLabel}». Выберите, как вам удобнее оплатить:`;
+  pModal.classList.add('open');
+}
+
+function openBookingModal(c, occ, existingBooking) {
+  document.getElementById('booking-modal-title').textContent = c.name;
+  document.getElementById('bm-date').textContent = DAY_NAMES[c.day] + ', ' + formatDate(occ);
+  document.getElementById('bm-time').textContent = c.time;
+  document.getElementById('bm-dur').textContent = c.dur + ' мин';
+  document.getElementById('bm-price').textContent = c.price;
+  const msg = document.getElementById('booking-modal-msg'); msg.textContent = ''; msg.className = 'modal-msg';
+  const actions = document.getElementById('booking-modal-actions'); actions.innerHTML = '';
+  const userKey = getUserKey();
+
+  if (!userKey) {
+    document.getElementById('booking-modal-sub').textContent = 'Войдите в личный кабинет, чтобы записаться';
+    const loginBtn = document.createElement('button');
+    loginBtn.className = 'auth-submit';
+    loginBtn.textContent = 'Войти / Зарегистрироваться';
+    loginBtn.addEventListener('click', () => {
+      bModal.classList.remove('open');
+      openAuthOverlay();
+    });
+    actions.appendChild(loginBtn);
+  } else if (existingBooking) {
+    document.getElementById('booking-modal-sub').textContent = 'Вы записаны на это занятие';
+    const hoursLeft = (occ.getTime() - Date.now()) / 3600000;
+    const cancelBtn = document.createElement('button');
+    cancelBtn.className = 'modal-cancel-btn';
+    if (hoursLeft < 2) { cancelBtn.textContent = 'Отмена недоступна (менее 2 ч)'; cancelBtn.disabled = true; }
+    else {
+      cancelBtn.textContent = 'Отменить запись';
+      cancelBtn.addEventListener('click', () => { cancelBooking(existingBooking.id); msg.textContent = 'Запись отменена'; msg.className = 'modal-msg ok'; setTimeout(() => bModal.classList.remove('open'), 700); });
+    }
+    actions.appendChild(cancelBtn);
+  } else {
+    document.getElementById('booking-modal-sub').textContent = 'Подтвердите запись на занятие';
+    const confirmBtn = document.createElement('button');
+    confirmBtn.className = 'auth-submit'; confirmBtn.textContent = 'Записаться';
+    confirmBtn.addEventListener('click', () => {
+      const bookings = getBookings();
+      bookings.push({ id: Date.now()+'-'+Math.random().toString(36).slice(2,8), userKey, slotId: c.id, name: c.name, day: c.day, time: c.time, dur: c.dur, price: c.price, dateKey: dateKey(occ), dateLabel: DAY_NAMES[c.day]+', '+formatDate(occ), startTime: occ.getTime() });
+      saveBookings(bookings);
+      msg.textContent = 'Вы успешно записаны!'; msg.className = 'modal-msg ok';
+      refreshScheduleViews(); renderMyBookings(); updateProfileStats();
+      setTimeout(() => bModal.classList.remove('open'), 800);
+    });
+    actions.appendChild(confirmBtn);
+  }
+  bModal.classList.add('open');
+}
+
+// Модальное окно добавления занятия
+function openAddClassModal(date) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal-box" style="max-width:500px;">
+      <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+      <div class="modal-title">Добавить занятие</div>
+      <div class="modal-sub">${DAY_NAMES[isoWeekday(date)]}, ${formatDate(date)}</div>
+      <form id="add-class-form" style="display:flex;flex-direction:column;gap:12px;margin-top:20px;">
+        <input class="auth-field" type="text" name="name" placeholder="Название занятия" required>
+        <select class="auth-field" name="trainer" required>
+          <option value="">Выберите тренера</option>
+          <option value="Анастасия Плотникова">Анастасия Плотникова</option>
+          <option value="Анна Сальникова">Анна Сальникова</option>
+          <option value="Виктория Буничева">Виктория Буничева</option>
+          <option value="Татьяна Орехова">Татьяна Орехова</option>
+          <option value="Светлана Гладкова">Светлана Гладкова</option>
+          <option value="Марина">Марина</option>
+          <option value="Елена Янченко">Елена Янченко</option>
+          <option value="Таня">Таня</option>
+        </select>
+        <input class="auth-field" type="time" name="time" required>
+        <input class="auth-field" type="number" name="dur" placeholder="Длительность (мин)" value="60" min="30" max="180" required>
+        <input class="auth-field" type="text" name="price" placeholder="Стоимость" value="по абонементу" required>
+        <input class="auth-field" type="number" name="capacity" placeholder="Количество мест" value="7" min="1" max="50" required>
+        <select class="auth-field" name="level" required>
+          <option value="Любой">Любой уровень</option>
+          <option value="Начинающий">Начинающий</option>
+          <option value="Начинающий - базовый">Начинающий - базовый</option>
+          <option value="Базовый">Базовый</option>
+        </select>
+        <div style="display:flex;gap:12px;margin-top:8px;">
+          <button type="submit" class="auth-submit" style="flex:1;">Добавить</button>
+          <button type="button" class="modal-cancel-btn" style="flex:1;" onclick="this.closest('.modal-overlay').remove()">Отмена</button>
+        </div>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  
+  document.getElementById('add-class-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const customClasses = getCustomClasses();
+    const newClass = {
+      id: 'custom-' + Date.now(),
+      name: formData.get('name'),
+      trainer: formData.get('trainer'),
+      time: formData.get('time'),
+      dur: parseInt(formData.get('dur')),
+      price: formData.get('price'),
+      dateKey: dateKey(date),
+      capacity: parseInt(formData.get('capacity')) || null,
+      level: formData.get('level'),
+      trainerTag: 'Дополнительное'
+    };
+    customClasses.push(newClass);
+    saveCustomClasses(customClasses);
+    modal.remove();
+    refreshScheduleViews();
+  });
+}
+// ═══════════════════════════════════════════════════════
+//  MY BOOKINGS MODAL
+// ═══════════════════════════════════════════════════════
+const mbModal = document.getElementById('mybookings-modal');
+document.getElementById('mybookings-modal-close').addEventListener('click', () => mbModal.classList.remove('open'));
+mbModal.addEventListener('click', e => { if (e.target === mbModal) mbModal.classList.remove('open'); });
+
+function openMyBookingsModal() {
+  document.getElementById('account-menu').style.display = 'none';
+  renderMyBookings(); mbModal.classList.add('open');
+}
+
+function renderMyBookings() {
+  const list = document.getElementById('mybookings-list'); list.innerHTML = '';
+  const userKey = getUserKey();
+  if (!userKey) { list.innerHTML = '<div class="mybookings-empty">Войдите в аккаунт</div>'; return; }
+  const bookings = getBookings().filter(b => b.userKey === userKey && b.startTime > Date.now() - 3600000).sort((a,b) => a.startTime - b.startTime);
+  if (!bookings.length) { list.innerHTML = '<div class="mybookings-empty">У вас пока нет записей</div>'; return; }
+  bookings.forEach(b => {
+    const hoursLeft = (b.startTime - Date.now()) / 3600000;
+    const row = document.createElement('div'); row.className = 'mybooking-item';
+    row.innerHTML = `<div class="mybooking-info"><strong>${b.name}</strong><span>${b.dateLabel}, ${b.time} · ${b.dur} мин</span></div>`;
+    const btn = document.createElement('button'); btn.className = 'mybooking-cancel';
+    if (hoursLeft < 1) { btn.textContent = 'Менее 1 ч'; btn.disabled = true; }
+    else { btn.textContent = 'Отменить'; btn.addEventListener('click', () => cancelBooking(b.id)); }
+    row.appendChild(btn); list.appendChild(row);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  PROFILE PANEL
+// ═══════════════════════════════════════════════════════
+let profileTab = 'upcoming';
+
+function openProfile() {
+  document.getElementById('account-menu').style.display = 'none';
+  updateProfileHeader();
+  updateProfileStats();
+  showProfileTab('upcoming');
+  document.getElementById('profile-panel').classList.add('open');
+}
+function closeProfile() { document.getElementById('profile-panel').classList.remove('open'); }
+
+function updateProfileHeader() {
+  if (!currentUser) return;
+  const name = currentUser.displayName || currentUser.email || 'Пользователь';
+  const initial = name.slice(0,1).toUpperCase();
+  document.getElementById('profile-avatar-big').textContent = initial;
+  document.getElementById('profile-name-big').textContent = name;
+  document.getElementById('profile-email-big').textContent = currentUser.email || '';
+}
+
+function updateProfileStats() {
+  const userKey = getUserKey(); if (!userKey) return;
+  const bookings = getBookings().filter(b => b.userKey === userKey);
+  const upcoming = bookings.filter(b => b.startTime > Date.now());
+  document.getElementById('stat-upcoming').textContent = upcoming.length;
+  document.getElementById('stat-total').textContent = bookings.length;
+  // Favorite
+  const counts = {};
+  bookings.forEach(b => { counts[b.name] = (counts[b.name]||0)+1; });
+  const fav = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById('stat-fav').textContent = fav ? fav[0].split(' ')[0] : '—';
+}
+
+function showProfileTab(tab) {
+  profileTab = tab;
+  document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.profile-tab').forEach(t => { if(t.textContent.toLowerCase().includes(tab==='upcoming'?'предст':'ист')) t.classList.add('active'); });
+  renderProfileBookings();
+}
+
+function renderProfileBookings() {
+  const list = document.getElementById('profile-bookings-list'); list.innerHTML = '';
+  const userKey = getUserKey(); if (!userKey) return;
+  const now = Date.now();
+  let bookings = getBookings().filter(b => b.userKey === userKey);
+  if (profileTab === 'upcoming') bookings = bookings.filter(b => b.startTime > now - 3600000).sort((a,b)=>a.startTime-b.startTime);
+  else bookings = bookings.filter(b => b.startTime <= now).sort((a,b)=>b.startTime-a.startTime);
+
+  if (!bookings.length) {
+    list.innerHTML = '<div class="mybookings-empty">' + (profileTab==='upcoming' ? 'Нет предстоящих занятий' : 'История пуста') + '</div>';
+    return;
+  }
+  bookings.forEach(b => {
+    const hoursLeft = (b.startTime - now) / 3600000;
+    const row = document.createElement('div'); row.className = 'profile-booking-row';
+    row.innerHTML = `
+      <div class="profile-booking-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div class="profile-booking-info">
+        <div class="profile-booking-name">${b.name}</div>
+        <div class="profile-booking-date">${b.dateLabel}, ${b.time} · ${b.dur} мин · ${b.price}</div>
+      </div>
+    `;
+    if (profileTab === 'upcoming') {
+      const btn = document.createElement('button'); btn.className = 'profile-cancel-btn';
+      if (hoursLeft < 1) { btn.textContent = 'Менее 1 ч'; btn.disabled = true; }
+      else { btn.textContent = 'Отменить'; btn.addEventListener('click', () => { cancelBooking(b.id); renderProfileBookings(); updateProfileStats(); }); }
+      row.appendChild(btn);
+    }
+    list.appendChild(row);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  CHAT
+// ═══════════════════════════════════════════════════════
+function toggleChatPanel() {
+  const panel = document.getElementById('chat-panel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    clearChatBadge();
+    renderChatMessages();
+    setTimeout(() => {
+      const msgs = document.getElementById('chat-messages');
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 50);
+  }
+}
+
+function openChatPanel() {
+  document.getElementById('account-menu').style.display = 'none';
+  const panel = document.getElementById('chat-panel');
+  panel.classList.add('open');
+  clearChatBadge();
+  renderChatMessages();
+  setTimeout(() => { const msgs = document.getElementById('chat-messages'); msgs.scrollTop = msgs.scrollHeight; }, 50);
+}
+
+function clearChatBadge() {
+  const badge = document.getElementById('chat-badge');
+  badge.classList.remove('visible');
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+}
+
+function sendChatMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim(); if (!text) return;
+  const userId = getUserId() || 'anon';
+  const userName = getUserKey() || 'Гость';
+  const userEmail = currentUser ? currentUser.email : '';
+  const msgs = getChats();
+  const msg = { id: Date.now()+'', from: 'user', text, ts: Date.now(), userId, userName, userEmail };
+  msgs.push(msg);
+  saveChats(msgs);
+  // Also save to admin chats
+  const adminChats = getAdminChats();
+  if (!adminChats[userId]) adminChats[userId] = { userId, userName, userEmail, unread: 0, messages: [] };
+  adminChats[userId].messages.push(msg);
+  adminChats[userId].unread = (adminChats[userId].unread || 0) + 1;
+  adminChats[userId].lastMsg = text;
+  adminChats[userId].lastTs = Date.now();
+  saveAdminChats(adminChats);
+  input.value = '';
+  renderChatMessages();
+  const container = document.getElementById('chat-messages');
+  container.scrollTop = container.scrollHeight;
+}
+
+function renderChatMessages() {
+  const container = document.getElementById('chat-messages');
+  const userId = getUserId() || 'anon';
+  const adminChats = getAdminChats();
+  const conv = adminChats[userId];
+  const msgs = conv ? conv.messages : [];
+  const emptyEl = document.getElementById('chat-empty');
+  container.innerHTML = '';
+  if (!msgs.length) { container.appendChild(emptyEl || (() => { const d = document.createElement('div'); d.className='chat-empty'; d.textContent='Задайте любой вопрос — мы ответим в ближайшее время!'; return d; })()); return; }
+  msgs.forEach(m => {
+    const wrap = document.createElement('div');
+    wrap.className = 'chat-msg ' + (m.from === 'user' ? 'from-user' : 'from-admin');
+    const bubble = document.createElement('div'); bubble.className = 'chat-msg-bubble'; bubble.textContent = m.text;
+    const time = document.createElement('div'); time.className = 'chat-msg-time';
+    time.textContent = new Date(m.ts).toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'});
+    wrap.appendChild(bubble); wrap.appendChild(time);
+    container.appendChild(wrap);
+  });
+}
+
+// Poll for admin replies
+function pollAdminReplies() {
+  const userId = getUserId(); if (!userId) return;
+  const adminChats = getAdminChats();
+  const conv = adminChats[userId]; if (!conv) return;
+  const myMsgs = getChats();
+  const adminMsgs = conv.messages.filter(m => m.from === 'admin');
+  const myAdminMsgs = myMsgs.filter(m => m.from === 'admin');
+  if (adminMsgs.length > myAdminMsgs.length) {
+    saveChats(conv.messages);
+    const panel = document.getElementById('chat-panel');
+    if (!panel.classList.contains('open')) {
+      document.getElementById('chat-badge').classList.add('visible');
+    } else {
+      renderChatMessages();
+      setTimeout(() => { const c = document.getElementById('chat-messages'); c.scrollTop = c.scrollHeight; }, 50);
+    }
+  }
+}
+setInterval(pollAdminReplies, 2000);
+
+// ═══════════════════════════════════════════════════════
+//  ADMIN PANEL
+// ═══════════════════════════════════════════════════════
+// Аккаунты администраторов: логин/пароль/отображаемое имя
+// Добавляйте сюда новые пары логин/пароль для сотрудников
+const ADMIN_ACCOUNTS = [
+  { login: 'sema',   password: 'svetlica2026',  name: 'Сёма (владелец/разработчик)' },
+  { login: 'sveta',  password: 'sveta2026',      name: 'Светлана (владелец студии)' },
+  { login: 'admin3', password: 'svetlica2026-3', name: 'Администратор' },
+];
+const ADMIN_SESSION_KEY = 'svetlica_admin_session';
+function getAdminSession() { try { return JSON.parse(localStorage.getItem(ADMIN_SESSION_KEY)); } catch(e){ return null; } }
+function isAdmin() { return !!getAdminSession(); }
+
+let adminSelectedUserId = null;
+
+function openAdminLogin() {
+  document.getElementById('admin-login-overlay').style.display = 'flex';
+  document.getElementById('admin-login-input').value = '';
+  document.getElementById('admin-pass-input').value = '';
+  document.getElementById('admin-login-error').textContent = '';
+}
+
+function checkAdminPass() {
+  const login = document.getElementById('admin-login-input').value.trim().toLowerCase();
+  const pass = document.getElementById('admin-pass-input').value;
+  const account = ADMIN_ACCOUNTS.find(a => a.login.toLowerCase() === login && a.password === pass);
+  if (account) {
+    localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify({ login: account.login, name: account.name }));
+    document.getElementById('admin-login-overlay').style.display = 'none';
+    openAdminPanel();
+    if (window.Notification && Notification.permission === 'default') Notification.requestPermission();
+  } else {
+    document.getElementById('admin-login-error').textContent = 'Неверный логин или пароль';
+  }
+}
+
+function adminLogout() {
+  localStorage.removeItem(ADMIN_SESSION_KEY);
+  const dot = document.getElementById('admin-notify-dot');
+  if (dot) dot.style.display = 'none';
+  closeAdminPanel();
+  refreshScheduleViews();
+}
+
+document.getElementById('admin-pass-input').addEventListener('keydown', e => { if(e.key==='Enter') checkAdminPass(); });
+document.getElementById('admin-login-input').addEventListener('keydown', e => { if(e.key==='Enter') checkAdminPass(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('admin-login-overlay').style.display = 'none';
+    document.getElementById('admin-panel').classList.remove('open');
+  }
+});
+
+function openAdminPanel() {
+  const session = getAdminSession();
+  document.getElementById('admin-current-name').textContent = session ? session.name : '';
+  document.getElementById('admin-panel').classList.add('open');
+  renderAdminConvList();
+  updateAdminUnreadBadge();
+  // Poll for new messages
+  adminPollInterval = setInterval(() => { renderAdminConvList(); updateAdminUnreadBadge(); if (adminSelectedUserId) renderAdminMessages(adminSelectedUserId); }, 2000);
+}
+let adminPollInterval = null;
+
+function closeAdminPanel() {
+  document.getElementById('admin-panel').classList.remove('open');
+  if (adminPollInterval) { clearInterval(adminPollInterval); adminPollInterval = null; }
+}
+
+function updateAdminUnreadBadge() {
+  const adminChats = getAdminChats();
+  const total = Object.values(adminChats).reduce((s,c) => s + (c.unread||0), 0);
+  const badge = document.getElementById('admin-unread-badge');
+  if (total > 0) { badge.textContent = total + ' новых'; badge.style.display = 'inline-block'; }
+  else { badge.style.display = 'none'; }
+}
+
+function renderAdminConvList() {
+  const list = document.getElementById('admin-conv-list'); list.innerHTML = '';
+  const adminChats = getAdminChats();
+  const convs = Object.values(adminChats).sort((a,b) => (b.lastTs||0)-(a.lastTs||0));
+  if (!convs.length) {
+    list.innerHTML = '<div style="padding:16px;font-size:13px;color:var(--light-text);">Пока нет сообщений</div>';
+    return;
+  }
+  convs.forEach(conv => {
+    const item = document.createElement('div');
+    item.className = 'admin-conv-item' + (conv.userId === adminSelectedUserId ? ' active' : '');
+    item.innerHTML = `
+      <div class="admin-conv-name">${conv.userName || conv.userEmail || 'Гость'}${conv.unread ? '<span class="admin-conv-unread"></span>' : ''}</div>
+      <div class="admin-conv-preview">${conv.lastMsg || '—'}</div>
+      <div class="admin-conv-time">${conv.lastTs ? new Date(conv.lastTs).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}) : ''}</div>
+    `;
+    item.addEventListener('click', () => selectAdminConv(conv.userId));
+    list.appendChild(item);
+  });
+}
+
+function selectAdminConv(userId) {
+  adminSelectedUserId = userId;
+  // Mark as read
+  const adminChats = getAdminChats();
+  if (adminChats[userId]) { adminChats[userId].unread = 0; saveAdminChats(adminChats); }
+  document.getElementById('admin-empty-state').style.display = 'none';
+  document.getElementById('admin-active-chat').style.display = 'flex';
+  const conv = adminChats[userId];
+  document.getElementById('admin-chat-username').textContent = conv.userName || conv.userEmail || 'Гость';
+  document.getElementById('admin-chat-email').textContent = conv.userEmail || '';
+  renderAdminMessages(userId);
+  renderAdminConvList();
+  updateAdminUnreadBadge();
+  setTimeout(() => { const c = document.getElementById('admin-messages-list'); c.scrollTop = c.scrollHeight; }, 50);
+}
+
+function renderAdminMessages(userId) {
+  const container = document.getElementById('admin-messages-list'); container.innerHTML = '';
+  const adminChats = getAdminChats();
+  const conv = adminChats[userId]; if (!conv) return;
+  conv.messages.forEach(m => {
+    const wrap = document.createElement('div');
+    wrap.className = 'admin-msg ' + (m.from === 'admin' ? 'from-admin' : 'from-user');
+    const bubble = document.createElement('div'); bubble.className = 'admin-msg-bubble'; bubble.textContent = m.text;
+    const time = document.createElement('div'); time.className = 'admin-msg-time';
+    time.textContent = new Date(m.ts).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+    wrap.appendChild(bubble); wrap.appendChild(time);
+    container.appendChild(wrap);
+  });
+  container.scrollTop = container.scrollHeight;
+}
+
+function sendAdminReply() {
+  if (!adminSelectedUserId) return;
+  const input = document.getElementById('admin-reply-input');
+  const text = input.value.trim(); if (!text) return;
+  const adminChats = getAdminChats();
+  if (!adminChats[adminSelectedUserId]) return;
+  const msg = { id: Date.now()+'', from: 'admin', text, ts: Date.now() };
+  adminChats[adminSelectedUserId].messages.push(msg);
+  adminChats[adminSelectedUserId].lastMsg = text;
+  adminChats[adminSelectedUserId].lastTs = Date.now();
+  saveAdminChats(adminChats);
+  input.value = '';
+  renderAdminMessages(adminSelectedUserId);
+  renderAdminConvList();
+}
+
+document.getElementById('admin-reply-input').addEventListener('keydown', e => { if(e.key==='Enter') sendAdminReply(); });
+
+// ═══════════════════════════════════════════════════════
+//  UI MISC
+// ═══════════════════════════════════════════════════════
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => { if (nav) nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive:true });
+const heroImg = document.getElementById('hero-img');
+if (heroImg) window.addEventListener('scroll', () => { const o = window.scrollY; if (o < window.innerHeight * 1.5) heroImg.style.transform = `translateY(${o * 0.18}px)`; }, { passive:true });
+
+const abGrid = document.getElementById('ab-grid');
+if (abGrid) {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { abGrid.querySelectorAll('.ab-card').forEach(c => setTimeout(() => c.classList.add('ab-visible'), parseInt(c.dataset.delay||0))); obs.disconnect(); } });
+  }, { threshold: 0.2 });
+  obs.observe(abGrid);
+}
+
+// Account menu
+document.getElementById('account-btn').addEventListener('click', e => {
+  e.stopPropagation();
+  const menu = document.getElementById('account-menu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+});
+document.addEventListener('click', () => { document.getElementById('account-menu').style.display = 'none'; });
+document.getElementById('account-menu').addEventListener('click', e => e.stopPropagation());
+
+// ═══════════════════════════════════════════════════════
+//  AUTH UI
+// ═══════════════════════════════════════════════════════
+window.currentAuthTab = 'login';
+window.switchTab = (tab) => {
+  window.currentAuthTab = tab;
+  document.querySelectorAll('.auth-tab').forEach(btn => {
+    btn.classList.toggle('active', (tab==='login' && btn.textContent.includes('Вход')) || (tab==='register' && btn.textContent.includes('Рег')));
+  });
+  document.getElementById('field-name').style.display = tab==='register' ? 'block' : 'none';
+  document.getElementById('auth-btn').textContent = tab==='register' ? 'Зарегистрироваться' : 'Войти';
+  document.getElementById('auth-error').textContent = '';
+  document.getElementById('auth-success').textContent = '';
+};
+
+// ═══════════════════════════════════════════════════════
+//  TRAINERS CAROUSEL
+// ═══════════════════════════════════════════════════════
+(function() {
+  const carousel = document.getElementById('trainers-carousel');
+  const dotsContainer = document.getElementById('trainer-dots');
+  if (!carousel) return;
+
+  const cards = carousel.querySelectorAll('.trainer-card');
+  const total = cards.length;
+  let currentIndex = 0;
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => scrollToCard(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  function updateDots(idx) {
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function scrollToCard(idx) {
+    idx = Math.max(0, Math.min(total - 1, idx));
+    currentIndex = idx;
+    const card = cards[idx];
+    const cardLeft = card.offsetLeft - carousel.offsetLeft;
+    carousel.scrollTo({ left: cardLeft, behavior: 'smooth' });
+    updateDots(idx);
+  }
+
+  window.trainerCarouselNav = function(dir) {
+    scrollToCard(currentIndex + dir);
+  };
+
+  // Update dots on scroll
+  carousel.addEventListener('scroll', () => {
+    const scrollLeft = carousel.scrollLeft;
+    let closest = 0;
+    let closestDist = Infinity;
+    cards.forEach((card, i) => {
+      const dist = Math.abs(card.offsetLeft - carousel.offsetLeft - scrollLeft);
+      if (dist < closestDist) { closestDist = dist; closest = i; }
+    });
+    currentIndex = closest;
+    updateDots(closest);
+  });
+
+  // Drag to scroll
+  let isDown = false, startX, scrollStart;
+  carousel.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - carousel.offsetLeft; scrollStart = carousel.scrollLeft; carousel.style.cursor = 'grabbing'; });
+  carousel.addEventListener('mouseleave', () => { isDown = false; carousel.style.cursor = 'grab'; });
+  carousel.addEventListener('mouseup', () => { isDown = false; carousel.style.cursor = 'grab'; });
+  carousel.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - carousel.offsetLeft; carousel.scrollLeft = scrollStart - (x - startX); });
+})();
+
+// ═══════════════════════════════════════════════════════
+//  GLOBAL CURSOR GLOW + HERO PARALLAX
+// ═══════════════════════════════════════════════════════
+(() => {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  const glow = document.getElementById('cursor-glow');
+  let raf = null, mx = 0, my = 0;
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    glow.classList.add('active');
+    if (!raf) raf = requestAnimationFrame(() => {
+      glow.style.left = mx + 'px';
+      glow.style.top = my + 'px';
+      raf = null;
+    });
+  });
+  document.addEventListener('mouseleave', () => glow.classList.remove('active'));
+
+  const heroImg = document.getElementById('hero-img');
+  if (heroImg) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) heroImg.style.transform = `translateY(${y * 0.15}px) scale(${1 + y*0.0003})`;
+    }, { passive: true });
+  }
+})();
+
+// ═══════════════════════════════════════════════════════
+//  MAGNETIC TILT ON PREMIUM CARDS
+// ═══════════════════════════════════════════════════════
+(() => {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(900px) rotateY(${px*6}deg) rotateX(${-py*6}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+})();
+
+// ═══════════════════════════════════════════════════════
+//  CURSOR SPOTLIGHT ON DARK SECTIONS
+// ═══════════════════════════════════════════════════════
+(() => {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  document.querySelectorAll('.black-banner').forEach(el => {
+    el.style.position = el.style.position || 'relative';
+    const glow = document.createElement('div');
+    glow.style.cssText = 'position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 0.4s;background:radial-gradient(circle 280px at var(--mx,50%) var(--my,50%), rgba(240,192,64,0.16), transparent 70%);';
+    el.appendChild(glow);
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      glow.style.opacity = '1';
+    });
+    el.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+  });
+})();
+
+// ═══════════════════════════════════════════════════════
+//  SCROLL REVEAL ANIMATIONS
+// ═══════════════════════════════════════════════════════
+(() => {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// ═══════════════════════════════════════════════════════
+//  USER AUTH FUNCTIONS
+// ═══════════════════════════════════════════════════════
+function onUserLoggedIn(user) {
+  currentUser = user;
+  const name = user.displayName || user.email || 'П';
+  const initial = name.slice(0,1).toUpperCase();
+  document.getElementById('account-btn').textContent = initial;
+  document.getElementById('account-btn').style.display = 'flex';
+  document.getElementById('account-avatar-big').textContent = initial;
+  document.getElementById('account-name').textContent = user.displayName || user.email;
+  document.getElementById('account-email-display').textContent = user.email || '';
+  document.getElementById('chat-btn').style.display = 'flex';
+  document.getElementById('guest-login-btn').style.display = 'none';
+  document.getElementById('auth-overlay').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+  initSectionCalendar();
+  updateProfileStats();
+}
+
+function enterAsGuest() {
+  currentUser = null;
+  document.getElementById('account-btn').style.display = 'none';
+  document.getElementById('chat-btn').style.display = 'none';
+  document.getElementById('guest-login-btn').style.display = 'inline-block';
+  document.getElementById('auth-overlay').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+  initSectionCalendar();
+}
+
+function onUserLoggedOut() {
+  currentUser = null;
+  document.getElementById('account-btn').style.display = 'none';
+  document.getElementById('chat-btn').style.display = 'none';
+  document.getElementById('guest-login-btn').style.display = 'none';
+  document.getElementById('auth-overlay').style.display = 'flex';
+  document.getElementById('main-content').style.display = 'none';
+}
+
+// Re-open the auth overlay for a guest who wants to log in / register later
+function openAuthOverlay() {
+  document.getElementById('auth-error').textContent = '';
+  document.getElementById('auth-success').textContent = '';
+  document.getElementById('auth-close-btn').style.display = 'flex';
+  document.getElementById('auth-overlay').style.display = 'flex';
+}
+
+function closeAuthOverlay() {
+  document.getElementById('auth-overlay').style.display = 'none';
+}
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  document.getElementById('account-menu').style.display = 'none';
+  if (window._firebaseSignOut) window._firebaseSignOut();
+  else onUserLoggedOut();
+});
+</script>
+
+<!-- FIREBASE AUTH -->
+<script type="module">
+(async () => {
+  const firebaseConfig = {
+    apiKey: "AIzaSyBcZ2CIVbXpLndbN9Lki9ODhpLqo6IfnSk",
+    authDomain: "svetlica-7e885.firebaseapp.com",
+    projectId: "svetlica-7e885",
+    storageBucket: "svetlica-7e885.firebasestorage.app",
+    messagingSenderId: "1047925391646",
+    appId: "1:1047925391646:web:1a163bf26e8399559b890f"
+  };
+
+  window.submitAuth = () => {
+    const email = document.getElementById('email').value.trim();
+    const pass = document.getElementById('pass').value;
+    const name = document.getElementById('name') ? document.getElementById('name').value.trim() : '';
+    const errEl = document.getElementById('auth-error');
+    const successEl = document.getElementById('auth-success');
+    errEl.textContent = ''; successEl.textContent = '';
+    if (!email || !pass) { errEl.textContent = 'Введите email и пароль'; return; }
+    if (!window._firebaseAuth) {
+      // Fallback local mode
+      const uid = 'local-' + email.replace(/[^a-z0-9]/gi,'-');
+      onUserLoggedIn({ uid, email, displayName: name || null });
+      return;
+    }
+    const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } = window._firebaseAuth;
+    if (window.currentAuthTab === 'login') {
+      signInWithEmailAndPassword(auth, email, pass).catch(err => {
+        if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') errEl.textContent = 'Пользователь не найден.';
+        else if (err.code === 'auth/wrong-password') errEl.textContent = 'Неверный пароль.';
+        else if (err.code === 'auth/invalid-email') errEl.textContent = 'Неверный формат email.';
+        else if (err.code === 'auth/too-many-requests') errEl.textContent = 'Слишком много попыток.';
+        else errEl.textContent = 'Ошибка: ' + err.message;
+      });
+    } else {
+      createUserWithEmailAndPassword(auth, email, pass).then(cred => {
+        if (name && updateProfile) updateProfile(cred.user, { displayName: name }).catch(()=>{});
+        successEl.textContent = 'Регистрация успешна!';
+      }).catch(err => {
+        if (err.code === 'auth/email-already-in-use') errEl.textContent = 'Email уже используется.';
+        else if (err.code === 'auth/weak-password') errEl.textContent = 'Пароль слишком простой.';
+        else errEl.textContent = 'Ошибка: ' + err.message;
+      });
+    }
+  };
+
+  try {
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js');
+    const { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut, updateProfile } = await import('https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js');
+    const { getFirestore, doc, setDoc, onSnapshot } = await import('https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    window._firebaseAuth = { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile };
+    window._firebaseSignOut = () => signOut(auth);
+    onAuthStateChanged(auth, user => {
+      document.getElementById('loading-screen').style.display = 'none';
+      if (user) onUserLoggedIn({ uid: user.uid, email: user.email, displayName: user.displayName });
+      else onUserLoggedOut();
+    });
+
+    // ── FIRESTORE: общая база данных (записи, занятия, чаты) ──
+    // Все ключи хранятся в коллекции "svetlica_data" в документах bookings / customClasses / adminChats
+    const COL = 'svetlica_data';
+    window._fsSet = (name, value) => {
+      setDoc(doc(db, COL, name), { data: value, updatedAt: Date.now() }).catch(e => console.warn('Firestore write error:', name, e));
+    };
+
+    let prevAdminUnread = 0;
+    const watch = (name, localKey, onUpdate) => {
+      onSnapshot(doc(db, COL, name), snap => {
+        if (!snap.exists()) return;
+        const remote = snap.data().data;
+        if (remote === undefined) return;
+        localStorage.setItem(localKey, JSON.stringify(remote));
+        onUpdate(remote);
+      }, e => console.warn('Firestore listen error:', name, e));
+    };
+
+    watch('bookings', BOOKINGS_KEY, () => {
+      if (typeof refreshScheduleViews === 'function') refreshScheduleViews();
+      if (typeof renderMyBookings === 'function') renderMyBookings();
+      if (typeof updateProfileStats === 'function') updateProfileStats();
+    });
+
+    watch('customClasses', CUSTOM_CLASSES_KEY, () => {
+      if (typeof refreshScheduleViews === 'function') refreshScheduleViews();
+    });
+
+    watch('gallery', GALLERY_KEY, () => {
+      if (typeof renderGallery === 'function') renderGallery();
+      if (typeof renderAdminGallery === 'function' && document.getElementById('admin-body-gallery') && document.getElementById('admin-body-gallery').style.display !== 'none') renderAdminGallery();
+    });
+
+    watch('adminChats', ADMIN_CHATS_KEY, (remote) => {
+      if (typeof renderAdminConvList === 'function') renderAdminConvList();
+      if (typeof updateAdminUnreadBadge === 'function') updateAdminUnreadBadge();
+      if (typeof adminSelectedUserId !== 'undefined' && adminSelectedUserId && typeof renderAdminMessages === 'function') renderAdminMessages(adminSelectedUserId);
+
+      // Уведомление пользователю о новом ответе администратора в чате
+      if (typeof pollAdminReplies === 'function') pollAdminReplies();
+
+      // Уведомление для админа о новых сообщениях (показываем даже если панель закрыта)
+      if (typeof isAdmin === 'function' && isAdmin()) {
+        const totalUnread = Object.values(remote || {}).reduce((s,c) => s + (c.unread||0), 0);
+        const dot = document.getElementById('admin-notify-dot');
+        if (dot) dot.style.display = totalUnread > 0 ? 'block' : 'none';
+        if (totalUnread > prevAdminUnread) {
+          // Звуковой сигнал
+          try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator(); const gain = ctx.createGain();
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.frequency.value = 880; gain.gain.value = 0.08;
+            osc.start(); osc.stop(ctx.currentTime + 0.18);
+          } catch(e) {}
+          // Браузерное уведомление
+          if (window.Notification && Notification.permission === 'granted') {
+            new Notification('СВЕТлица — новое сообщение', { body: 'В чате появилось новое сообщение от клиента' });
+          }
+        }
+        prevAdminUnread = totalUnread;
+      }
+    });
+
+    // Запрашиваем разрешение на уведомления, если открыта админ-панель
+    if (window.Notification && Notification.permission === 'default' && isAdmin()) {
+      Notification.requestPermission();
+    }
+  } catch(e) {
+    console.warn('Firebase unavailable, using local mode', e);
+    document.getElementById('loading-screen').style.display = 'none';
+    onUserLoggedOut();
+  }
+})();
+</script>
+
+</body>
+</html>
