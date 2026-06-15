@@ -300,6 +300,19 @@ section { padding: 120px 80px; }
 .book-btn.booked { background: var(--white); color: var(--gold); border: 1.5px solid var(--gold); }
 .schedule-empty { text-align: center; padding: 40px; color: var(--light-text); font-size: 14px; }
 
+/* ADMIN ROSTER (список записанных) */
+.admin-roster { flex-basis: 100%; margin-top: 12px; border-top: 1px dashed var(--beige2); padding-top: 12px; }
+.admin-roster-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-bottom: 10px; }
+.admin-roster-list { display: flex; flex-direction: column; gap: 6px; }
+.admin-roster-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; background: var(--cream); border: 1px solid var(--beige); border-radius: 10px; font-size: 13px; }
+.admin-roster-name { color: var(--dark); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+.admin-roster-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 7px; border-radius: 100px; }
+.admin-roster-tag.phone { background: var(--gold-bg); color: var(--gold); }
+.admin-roster-tag.user { background: #e8f0e8; color: #2a7a2a; }
+.admin-roster-remove { border: none; background: none; color: #d94040; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; white-space: nowrap; padding: 4px 8px; border-radius: 8px; transition: background 0.15s; }
+.admin-roster-remove:hover { background: rgba(217,64,64,0.1); }
+.admin-roster-empty { font-size: 12px; color: var(--light-text); padding: 4px 0; }
+
 /* MODAL */
 .modal-overlay { position: fixed; inset: 0; background: rgba(28,26,24,0.45); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
@@ -359,8 +372,8 @@ section { padding: 120px 80px; }
 
 /* ABONNEMENTS */
 .sub-text { font-size: 15px; color: var(--mid); max-width: 560px; margin-top: -12px; margin-bottom: 48px; }
-.ab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.ab-card { background: var(--white); border: 1px solid var(--beige); border-radius: 18px; padding: 36px 32px; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s, border-color 0.3s; }
+.ab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.ab-card { background: var(--white); border: 1px solid var(--beige); border-radius: 18px; padding: 32px 26px; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s, border-color 0.3s; }
 .ab-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(28,26,24,0.1); border-color: rgba(201,151,10,0.35); }
 .ab-card.featured:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 60px rgba(201,151,10,0.22); }
 .ab-card.ab-visible { opacity: 1; transform: translateY(0); }
@@ -375,6 +388,17 @@ section { padding: 120px 80px; }
 .ab-price sup { font-size: 22px; font-weight: 400; margin-right: 2px; vertical-align: top; top: 0.5em; }
 .ab-period { font-size: 13px; color: var(--light-text); margin-bottom: 24px; }
 .ab-card.featured .ab-period { color: rgba(255,255,255,0.5); }
+.ab-perclass { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--gold); background: var(--gold-bg); padding: 4px 12px; border-radius: 100px; margin-bottom: 18px; align-self: flex-start; }
+.ab-card.featured .ab-perclass { background: rgba(201,151,10,0.18); color: var(--gold-light); }
+.ab-best { font-weight: 700; }
+
+/* СПИСОК НАПРАВЛЕНИЙ */
+.ab-directions-intro { font-size: 15px; color: var(--mid); margin-bottom: 18px; }
+.ab-directions-intro strong { color: var(--gold); font-weight: 600; }
+.ab-directions { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; max-width: 720px; }
+.ab-directions li { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--dark); background: var(--white); border: 1px solid var(--beige); border-radius: 100px; padding: 8px 16px 8px 12px; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; }
+.ab-directions li:hover { border-color: rgba(201,151,10,0.4); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(28,26,24,0.06); }
+.ab-directions li svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; }
 .ab-features { list-style: none; font-size: 13.5px; color: var(--mid); flex: 1; margin-bottom: 28px; }
 .ab-card.featured .ab-features { color: rgba(255,255,255,0.75); }
 .ab-features li { padding: 9px 0; border-top: 1px solid var(--beige); }
@@ -520,7 +544,7 @@ footer { display: flex; justify-content: space-between; align-items: center; fle
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .individual-services { grid-template-columns: 1fr; }
-  .ab-grid { grid-template-columns: 1fr; }
+  .ab-grid { grid-template-columns: repeat(2, 1fr); }
   .atm-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: 220px 220px 220px; }
   .atm-cell:first-child { grid-column: 1 / 3; grid-row: 1 / 2; }
   .profile-stats { grid-template-columns: repeat(3, 1fr); }
@@ -535,6 +559,7 @@ footer { display: flex; justify-content: space-between; align-items: center; fle
   .about-grid, .contacts-grid { grid-template-columns: 1fr; }
   .about-photos img:first-child { height: 240px; }
   .services-grid, .why-grid { grid-template-columns: 1fr; }
+  .ab-grid { grid-template-columns: 1fr; }
   footer { padding: 32px 24px; text-align: center; justify-content: center; }
   .schedule-page-header { padding: 0 20px; }
   .schedule-page-body { padding: 32px 20px 80px; }
@@ -716,7 +741,7 @@ footer { display: flex; justify-content: space-between; align-items: center; fle
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
-    <span class="hero-eyebrow">г. Новосибирск · Микрорайон Горский</span>
+    <span class="hero-eyebrow">г. Новосибирск · Микрорайон Горский, 63/1</span>
     <h1 class="hero-title">Пространство,<br>где ты<br><span class="accent">знакомишься</span><br>с собой</h1>
     <p class="hero-sub">и наполняешься энергией жизни</p>
     <div class="hero-tags">
@@ -986,26 +1011,44 @@ footer { display: flex; justify-content: space-between; align-items: center; fle
 <!-- ABONNEMENTS -->
 <section class="abonnements" id="abonnements">
   <span class="section-eyebrow">Абонементы</span>
-  <h2 class="section-title">Выгоднее, чем разово</h2>
-  <p class="sub-text">Один абонемент действует на 7 направлений (летнее предложение 2026): Йога, Пилатес, Стретчинг, Здоровое тело, Восточные танцы, Зумба, Хай-Хилз без каблуков</p>
+  <p class="ab-directions-intro">Один абонемент действует на <strong>7 направлений</strong> (летнее предложение 2026):</p>
+  <ul class="ab-directions">
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Йога</li>
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Пилатес</li>
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Стретчинг</li>
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Здоровое тело</li>
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Восточные танцы</li>
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Зумба</li>
+    <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>Хай-Хилз без каблуков</li>
+  </ul>
   <div class="ab-grid reveal reveal-stagger" id="ab-grid">
     <div class="ab-card reveal-child reveal tilt-card" data-delay="0">
       <div class="ab-badge">Старт</div><div class="ab-count">4 занятия</div>
       <div class="ab-price"><sup>₽</sup>2 800</div><div class="ab-period">Действует 30 дней</div>
+      <span class="ab-perclass">700 ₽ за занятие</span>
       <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li></ul>
       <button class="ab-btn" onclick="openPurchaseModal('Старт — 4 занятия, 2 800₽')">Купить абонемент</button>
     </div>
-    <div class="ab-card reveal-child reveal tilt-card featured" data-delay="120">
-      <div class="ab-badge">Популярный</div><div class="ab-count">8 занятий</div>
-      <div class="ab-price"><sup>₽</sup>5 200</div><div class="ab-period">Действует 30 дней</div>
-      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 400₽</li></ul>
-      <button class="ab-btn" onclick="openPurchaseModal('Популярный — 8 занятий, 5 200₽')">Купить абонемент</button>
+    <div class="ab-card reveal-child reveal tilt-card" data-delay="120">
+      <div class="ab-badge">Оптимальный</div><div class="ab-count">6 занятий</div>
+      <div class="ab-price"><sup>₽</sup>3 900</div><div class="ab-period">Действует 30 дней</div>
+      <span class="ab-perclass">650 ₽ за занятие</span>
+      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 300 ₽</li></ul>
+      <button class="ab-btn" onclick="openPurchaseModal('Оптимальный — 6 занятий, 3 900₽')">Купить абонемент</button>
     </div>
     <div class="ab-card reveal-child reveal tilt-card" data-delay="240">
-      <div class="ab-badge">Безлимит</div><div class="ab-count">12 занятий</div>
-      <div class="ab-price"><sup>₽</sup>7 200</div><div class="ab-period">Действует 30 дней</div>
-      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 1 200₽</li></ul>
-      <button class="ab-btn" onclick="openPurchaseModal('Безлимит — 12 занятий, 7 200₽')">Купить абонемент</button>
+      <div class="ab-badge">Популярный</div><div class="ab-count">8 занятий</div>
+      <div class="ab-price"><sup>₽</sup>4 800</div><div class="ab-period">Действует 30 дней</div>
+      <span class="ab-perclass">600 ₽ за занятие</span>
+      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 800 ₽</li></ul>
+      <button class="ab-btn" onclick="openPurchaseModal('Популярный — 8 занятий, 4 800₽')">Купить абонемент</button>
+    </div>
+    <div class="ab-card reveal-child reveal tilt-card featured" data-delay="360">
+      <div class="ab-badge">Выгодный</div><div class="ab-count">12 занятий</div>
+      <div class="ab-price"><sup>₽</sup>5 800</div><div class="ab-period">Действует 30 дней</div>
+      <span class="ab-perclass ab-best">всего 480 ₽ за занятие</span>
+      <ul class="ab-features"><li>7 направлений на выбор</li><li>Заморозка 7 дней</li><li>Чаепитие после занятий</li><li>Экономия 2 600 ₽</li></ul>
+      <button class="ab-btn" onclick="openPurchaseModal('Выгодный — 12 занятий, 5 800₽')">Купить абонемент</button>
     </div>
   </div>
   <div class="ab-promo">
@@ -1224,6 +1267,232 @@ function cancelBooking(id) {
   if (typeof renderProfileBookings === 'function') renderProfileBookings();
 }
 
+// Читаемое имя клиента из объекта брони (для админ-списка)
+function bookingDisplayName(b) {
+  if (b.phoneBooking) return b.phoneName || (b.userKey || '').replace(/^phone:/, '') || 'Без имени';
+  return b.userKey || 'Без имени';
+}
+
+// Админ отписывает конкретного клиента с занятия (с подтверждением)
+function adminUnbookPerson(bookingId, onDone) {
+  const b = getBookings().find(x => x.id === bookingId);
+  if (!b) return;
+  const who = bookingDisplayName(b);
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal-box" style="max-width:380px;text-align:center;">
+      <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+      <div class="modal-title">Отписать с занятия?</div>
+      <div class="modal-sub">Точно отписать <strong>${who}</strong>? Место освободится для других.</div>
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button type="button" class="modal-cancel-btn" style="flex:1;" onclick="this.closest('.modal-overlay').remove()">Нет, оставить</button>
+        <button type="button" class="auth-submit" style="flex:1;background:#d94040;">Да, отписать</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  modal.querySelector('.auth-submit').addEventListener('click', () => {
+    cancelBooking(bookingId);
+    modal.remove();
+    if (typeof onDone === 'function') onDone();
+  });
+}
+
+// Конструктор админ-инструментов для карточки занятия:
+// кнопка брони по телефону + раскрывающийся список записанных с возможностью отписать каждого
+function buildAdminTools(c, occ, dKey, slotBookings, cap, rerender) {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;';
+
+  // Кнопка: добавить бронь по телефону
+  const phoneBtn = document.createElement('button');
+  phoneBtn.className = 'book-btn';
+  phoneBtn.style.cssText = 'background:var(--dark);font-size:11px;padding:10px 14px;';
+  phoneBtn.textContent = '+ по телефону';
+  phoneBtn.disabled = slotBookings.length >= cap;
+  phoneBtn.addEventListener('click', () => {
+    const name = prompt('Имя клиента (для брони по телефону):');
+    if (!name) return;
+    const all = getBookings();
+    all.push({
+      id: 'b-' + Date.now(), userKey: 'phone:' + name.trim(), slotId: c.id, name: c.name,
+      day: c.day, time: c.time, dur: c.dur, price: c.price,
+      dateKey: dKey, dateLabel: `${DAY_NAMES[c.day]}, ${formatDate(occ)}`,
+      startTime: occ.getTime(), phoneBooking: true, phoneName: name.trim()
+    });
+    saveBookings(all);
+    rerender();
+  });
+  wrap.appendChild(phoneBtn);
+
+  // Кнопка: показать/скрыть список записанных
+  const manageBtn = document.createElement('button');
+  manageBtn.className = 'book-btn';
+  manageBtn.style.cssText = 'background:var(--mid);font-size:11px;padding:10px 14px;';
+  manageBtn.textContent = `Записанные (${slotBookings.length})`;
+  manageBtn.disabled = slotBookings.length === 0;
+  wrap.appendChild(manageBtn);
+
+  // Раскрывающаяся панель со списком
+  const roster = document.createElement('div');
+  roster.className = 'admin-roster';
+  roster.style.display = 'none';
+  const rosterItems = slotBookings.map(b => {
+    const who = bookingDisplayName(b);
+    const isPhone = b.phoneBooking;
+    return `<div class="admin-roster-item">
+      <span class="admin-roster-name">${who}<span class="admin-roster-tag ${isPhone ? 'phone' : 'user'}">${isPhone ? 'по телефону' : 'приложение'}</span></span>
+      <button class="admin-roster-remove" data-bid="${b.id}">отписать</button>
+    </div>`;
+  }).join('');
+  roster.innerHTML = `<div class="admin-roster-title">Записаны на занятие — ${slotBookings.length}/${cap}</div>
+    <div class="admin-roster-list">${rosterItems || '<div class="admin-roster-empty">Пока никто не записан</div>'}</div>`;
+
+  roster.querySelectorAll('.admin-roster-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      adminUnbookPerson(btn.dataset.bid, rerender);
+    });
+  });
+
+  manageBtn.addEventListener('click', () => {
+    const open = roster.style.display !== 'none';
+    roster.style.display = open ? 'none' : 'block';
+    manageBtn.textContent = (open ? 'Записанные' : 'Скрыть') + ` (${slotBookings.length})`;
+  });
+  wrap.appendChild(roster);
+
+  return wrap;
+}
+
+// Кнопки управления занятием (заменить препода / удалить). isCustom — доп. занятие или базовое.
+function buildClassAdminControls(c, date, dateStr, isCustom, rerender) {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;';
+
+  const subBtn = document.createElement('button');
+  subBtn.className = 'book-btn';
+  subBtn.style.cssText = 'background:#7a6a45;font-size:11px;padding:10px 14px;';
+  subBtn.textContent = '⇄ Замена препода';
+  subBtn.addEventListener('click', () => openTrainerSubModal(c, dateStr, isCustom, rerender));
+  wrap.appendChild(subBtn);
+
+  const delBtn = document.createElement('button');
+  delBtn.className = 'book-btn';
+  delBtn.style.cssText = 'background:#b33;font-size:11px;padding:10px 14px;';
+  delBtn.textContent = '🗑 Удалить';
+  delBtn.addEventListener('click', () => openDeleteClassModal(c, dateStr, isCustom, rerender));
+  wrap.appendChild(delBtn);
+
+  return wrap;
+}
+
+// Универсальная модалка с выбором области действия: только этот день / навсегда
+function scopeModal(title, sub, onScope) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal-box" style="max-width:420px;text-align:center;">
+      <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+      <div class="modal-title">${title}</div>
+      <div class="modal-sub">${sub}</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+        <button type="button" class="auth-submit" data-scope="day">Только в этот день</button>
+        <button type="button" class="auth-submit" data-scope="forever" style="background:var(--dark);">Навсегда (каждую неделю)</button>
+        <button type="button" class="modal-cancel-btn" data-scope="cancel">Отмена</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  modal.querySelectorAll('[data-scope]').forEach(b => {
+    b.addEventListener('click', () => {
+      const s = b.dataset.scope;
+      modal.remove();
+      if (s !== 'cancel') onScope(s);
+    });
+  });
+}
+
+// Замена преподавателя
+function openTrainerSubModal(c, dateStr, isCustom, rerender) {
+  // Доп. занятие — у него одна дата, область выбора не нужна
+  const doSub = (scope) => {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay open';
+    modal.innerHTML = `
+      <div class="modal-box" style="max-width:420px;">
+        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+        <div class="modal-title">Замена преподавателя</div>
+        <div class="modal-sub">${c.name} · ${c.time}${scope==='forever'?' · каждую неделю':' · '+formatDate(date_from_key(dateStr))}</div>
+        <select class="auth-field" id="sub-trainer" style="margin-top:18px;">${trainerOptionsHTML(c.trainer)}</select>
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <button type="button" class="auth-submit" style="flex:1;" id="sub-save">Сохранить</button>
+          <button type="button" class="modal-cancel-btn" style="flex:1;" onclick="this.closest('.modal-overlay').remove()">Отмена</button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    modal.querySelector('#sub-save').addEventListener('click', () => {
+      const newTrainer = modal.querySelector('#sub-trainer').value;
+      if (!newTrainer) return;
+      if (isCustom) {
+        const all = getCustomClasses();
+        const found = all.find(x => x.id === c.id);
+        if (found) { found.trainer = newTrainer; saveCustomClasses(all); }
+      } else {
+        const ov = getSchedOverrides();
+        if (scope === 'forever') ov.trainerWeekly[c.id] = newTrainer;
+        else ov.trainerDate[c.id + '__' + dateStr] = newTrainer;
+        saveSchedOverrides(ov);
+      }
+      modal.remove();
+      rerender();
+    });
+  };
+
+  if (isCustom) doSub('custom');
+  else scopeModal('Заменить преподавателя?', `${c.name} · ${c.time}. На какой срок назначить замену?`, doSub);
+}
+
+// Удаление занятия
+function openDeleteClassModal(c, dateStr, isCustom, rerender) {
+  const doDelete = (scope) => {
+    if (isCustom) {
+      saveCustomClasses(getCustomClasses().filter(x => x.id !== c.id));
+    } else {
+      const ov = getSchedOverrides();
+      if (scope === 'forever') ov.cancelWeekly[c.id] = dateStr; // отменено с этой даты и далее
+      else ov.cancelDate[c.id + '__' + dateStr] = true;
+      saveSchedOverrides(ov);
+    }
+    rerender();
+  };
+
+  if (isCustom) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay open';
+    modal.innerHTML = `
+      <div class="modal-box" style="max-width:400px;text-align:center;">
+        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+        <div class="modal-title">Удалить доп. занятие?</div>
+        <div class="modal-sub">${c.name} · ${c.time}. Занятие будет удалено из этого дня.</div>
+        <div style="display:flex;gap:12px;margin-top:18px;">
+          <button type="button" class="modal-cancel-btn" style="flex:1;" onclick="this.closest('.modal-overlay').remove()">Отмена</button>
+          <button type="button" class="auth-submit" style="flex:1;background:#d94040;" id="del-confirm">Удалить</button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    modal.querySelector('#del-confirm').addEventListener('click', () => { doDelete('custom'); modal.remove(); });
+  } else {
+    scopeModal('Удалить занятие?', `${c.name} · ${c.time}. Удалить только в этот день или убрать из расписания навсегда?`, doDelete);
+  }
+}
+
+// helper: дата из ключа YYYY-MM-DD
+function date_from_key(k) { const [y,m,d] = k.split('-').map(Number); return new Date(y, m-1, d); }
+
 // Модальное окно подтверждения отмены записи с таймером на 3 секунды
 function confirmCancelBooking(id, onDone) {
   const modal = document.createElement('div');
@@ -1271,6 +1540,27 @@ function saveAdminChats(obj) { localStorage.setItem(ADMIN_CHATS_KEY, JSON.string
 const CUSTOM_CLASSES_KEY = 'svetlica_custom_classes';
 function getCustomClasses() { try { return JSON.parse(localStorage.getItem(CUSTOM_CLASSES_KEY)) || []; } catch(e){ return []; } }
 function saveCustomClasses(arr) { localStorage.setItem(CUSTOM_CLASSES_KEY, JSON.stringify(arr)); if (window._fsSet) window._fsSet('customClasses', arr); }
+
+// ── ПЕРЕОПРЕДЕЛЕНИЯ РАСПИСАНИЯ (для базовых занятий) ──
+// Позволяют админу: отменить занятие (на день/навсегда), заменить препода (на день/навсегда),
+// добавить постоянное занятие в день недели.
+const SCHED_OVERRIDES_KEY = 'svetlica_schedule_overrides';
+function getSchedOverrides() {
+  try {
+    const o = JSON.parse(localStorage.getItem(SCHED_OVERRIDES_KEY)) || {};
+    return { cancelDate:{}, cancelWeekly:{}, trainerDate:{}, trainerWeekly:{}, addWeekly:[], ...o };
+  } catch(e){ return { cancelDate:{}, cancelWeekly:{}, trainerDate:{}, trainerWeekly:{}, addWeekly:[] }; }
+}
+function saveSchedOverrides(o) { localStorage.setItem(SCHED_OVERRIDES_KEY, JSON.stringify(o)); if (window._fsSet) window._fsSet('scheduleOverrides', o); }
+
+// Фиксированный список преподавателей (из раздела «Тренеры»)
+const TRAINERS = ['Анастасия Плотникова','Анна Сальникова','Виктория Буничева','Татьяна Орехова','Светлана Гладкова','Марина','Елена Янченко','Таня'];
+function trainerOptionsHTML(selected) {
+  return ['<option value="">Выберите тренера</option>']
+    .concat(TRAINERS.map(t => `<option value="${t}"${t===selected?' selected':''}>${t}</option>`))
+    .join('');
+}
+
 
 // ── GALLERY / NEWS ──
 const GALLERY_KEY = 'svetlica_gallery';
@@ -1468,15 +1758,46 @@ function renderScheduleForDate(listId, date) {
     return;
   }
   const wd = isoWeekday(date);
-  const items = CLASSES.filter(c => c.day === wd);
-  
+  const dateStr = dateKey(date);
+  const ov = getSchedOverrides();
+
+  // Базовые занятия + добавленные админом постоянные (addWeekly)
+  let items = CLASSES.filter(c => c.day === wd)
+    .concat((ov.addWeekly || []).filter(c => c.day === wd));
+
+  // Применяем отмены и замену преподавателя
+  items = items.filter(c => {
+    if (ov.cancelDate[c.id + '__' + dateStr]) return false;            // отменено в этот день
+    if (ov.cancelWeekly[c.id] && dateStr >= ov.cancelWeekly[c.id]) return false; // отменено навсегда (с даты)
+    return true;
+  }).map(c => {
+    const subDay = ov.trainerDate[c.id + '__' + dateStr];
+    const subWeek = ov.trainerWeekly[c.id];
+    if (subDay) return { ...c, trainer: subDay, _sub: true };
+    if (subWeek) return { ...c, trainer: subWeek, _sub: true };
+    return c;
+  });
+
   // Добавляем пользовательские занятия
   const customClasses = getCustomClasses();
-  const dateStr = dateKey(date);
   const customForDate = customClasses.filter(c => c.dateKey === dateStr);
-  
+
+  // Кнопка добавления занятия для админа (сверху списка)
+  if (isAdmin()) {
+    const addBar = document.createElement('div');
+    addBar.style.cssText = 'display:flex;justify-content:flex-end;margin-bottom:4px;';
+    const addBtn = document.createElement('button');
+    addBtn.className = 'book-btn';
+    addBtn.style.cssText = 'background:var(--gold);font-size:12px;padding:11px 20px;';
+    addBtn.innerHTML = '+ Добавить занятие';
+    addBtn.addEventListener('click', () => openAddClassModal(date, () => renderScheduleForDate(listId, date)));
+    addBar.appendChild(addBtn);
+    list.appendChild(addBar);
+  }
+
   if (!items.length && !customForDate.length) {
-    list.innerHTML = '<div class="schedule-empty">В этот день занятий нет</div>';
+    if (!isAdmin()) list.innerHTML = '<div class="schedule-empty">В этот день занятий нет</div>';
+    else { const e = document.createElement('div'); e.className='schedule-empty'; e.textContent='В этот день занятий нет — добавьте через кнопку выше'; list.appendChild(e); }
   } else {
     const userKey = getUserKey();
     const bookings = getBookings();
@@ -1490,7 +1811,6 @@ function renderScheduleForDate(listId, date) {
       const isPast = occ.getTime() < now.getTime();
       const slotBookings = bookings.filter(b => b.slotId === c.id && b.dateKey === dKey);
       const bookedCount = slotBookings.length;
-      const phoneBookings = slotBookings.filter(b => b.phoneBooking);
       const cap = c.capacity || 5;
       const isFull = bookedCount >= cap && !myBooking;
 
@@ -1499,7 +1819,7 @@ function renderScheduleForDate(listId, date) {
       row.className = 'schedule-item';
       row.style.setProperty('--cat-color', catColor);
       const chips = [];
-      if (c.trainer) chips.push(`<span class="s-chip s-chip-trainer">👤 ${c.trainer}</span>`);
+      if (c.trainer) chips.push(`<span class="s-chip s-chip-trainer">👤 ${c.trainer}${c._sub ? ' <span style="color:var(--gold);font-weight:600;">(замена)</span>' : ''}</span>`);
       if (c.level) chips.push(`<span class="s-chip s-chip-level">${c.level}</span>`);
       chips.push(`<span class="s-chip s-chip-cap${isFull ? ' full' : ''}">занято ${bookedCount}/${cap}</span>`);
       if (c.openEnrollment) chips.push(`<span class="s-chip s-chip-open">✨ идёт набор</span>`);
@@ -1525,44 +1845,11 @@ function renderScheduleForDate(listId, date) {
       btn.addEventListener('click', () => !isPast && !isFull && openBookingModal(c, occ, myBooking));
       row.appendChild(btn);
 
-      // Админские инструменты: бронь/отмена по телефону
+      // Админские инструменты: бронь по телефону + список записанных + управление занятием
       if (isAdmin() && !isPast) {
-        const adminWrap = document.createElement('div');
-        adminWrap.style.cssText = 'display:flex;gap:6px;';
-        const phoneBtn = document.createElement('button');
-        phoneBtn.className = 'book-btn';
-        phoneBtn.style.cssText = 'background:var(--dark);font-size:11px;padding:10px 14px;';
-        phoneBtn.textContent = '+ по телефону';
-        phoneBtn.disabled = bookedCount >= cap;
-        phoneBtn.addEventListener('click', () => {
-          const name = prompt('Имя клиента (для брони по телефону):');
-          if (!name) return;
-          const all = getBookings();
-          all.push({
-            id: 'b-' + Date.now(), userKey: 'phone:' + name, slotId: c.id, name: c.name,
-            day: c.day, time: c.time, dur: c.dur, price: c.price,
-            dateKey: dKey, dateLabel: `${DAY_NAMES[c.day]}, ${formatDate(occ)}`,
-            startTime: occ.getTime(), phoneBooking: true, phoneName: name
-          });
-          saveBookings(all);
-          renderScheduleForDate(listId, date);
-        });
-        adminWrap.appendChild(phoneBtn);
-
-        if (phoneBookings.length) {
-          const removeBtn = document.createElement('button');
-          removeBtn.className = 'book-btn';
-          removeBtn.style.cssText = 'background:#e63946;font-size:11px;padding:10px 14px;';
-          removeBtn.textContent = '− освободить';
-          removeBtn.title = 'Удалить последнюю бронь по телефону: ' + phoneBookings[phoneBookings.length-1].phoneName;
-          removeBtn.addEventListener('click', () => {
-            const last = phoneBookings[phoneBookings.length-1];
-            saveBookings(getBookings().filter(b => b.id !== last.id));
-            renderScheduleForDate(listId, date);
-          });
-          adminWrap.appendChild(removeBtn);
-        }
-        row.appendChild(adminWrap);
+        const rerender = () => renderScheduleForDate(listId, date);
+        row.appendChild(buildAdminTools(c, occ, dKey, slotBookings, cap, rerender));
+        row.appendChild(buildClassAdminControls(c, date, dateStr, false, rerender));
       }
 
       list.appendChild(row);
@@ -1578,7 +1865,8 @@ function renderScheduleForDate(listId, date) {
       const now = new Date();
       const isPast = occ.getTime() < now.getTime();
 
-      const bookedCount = bookings.filter(b => b.slotId === c.id && b.dateKey === dKey).length;
+      const slotBookings = bookings.filter(b => b.slotId === c.id && b.dateKey === dKey);
+      const bookedCount = slotBookings.length;
       const row = document.createElement('div');
       row.className = 'schedule-item';
       row.style.borderLeft = '3px solid var(--gold)';
@@ -1605,6 +1893,14 @@ function renderScheduleForDate(listId, date) {
       }
       btn.addEventListener('click', () => !isPast && !isFull && openBookingModal(c, occ, myBooking));
       row.appendChild(btn);
+
+      // Админские инструменты для доп. занятий
+      if (isAdmin() && !isPast) {
+        const rerender = () => renderScheduleForDate(listId, date);
+        row.appendChild(buildAdminTools(c, occ, dKey, slotBookings, c.capacity || 5, rerender));
+        row.appendChild(buildClassAdminControls(c, date, dateStr, true, rerender));
+      }
+
       list.appendChild(row);
     });
   }
@@ -1746,27 +2042,18 @@ function openBookingModal(c, occ, existingBooking) {
 }
 
 // Модальное окно добавления занятия
-function openAddClassModal(date) {
+function openAddClassModal(date, rerender) {
+  const wd = isoWeekday(date);
   const modal = document.createElement('div');
   modal.className = 'modal-overlay open';
   modal.innerHTML = `
     <div class="modal-box" style="max-width:500px;">
       <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
       <div class="modal-title">Добавить занятие</div>
-      <div class="modal-sub">${DAY_NAMES[isoWeekday(date)]}, ${formatDate(date)}</div>
+      <div class="modal-sub">${DAY_NAMES[wd]}, ${formatDate(date)}</div>
       <form id="add-class-form" style="display:flex;flex-direction:column;gap:12px;margin-top:20px;">
         <input class="auth-field" type="text" name="name" placeholder="Название занятия" required>
-        <select class="auth-field" name="trainer" required>
-          <option value="">Выберите тренера</option>
-          <option value="Анастасия Плотникова">Анастасия Плотникова</option>
-          <option value="Анна Сальникова">Анна Сальникова</option>
-          <option value="Виктория Буничева">Виктория Буничева</option>
-          <option value="Татьяна Орехова">Татьяна Орехова</option>
-          <option value="Светлана Гладкова">Светлана Гладкова</option>
-          <option value="Марина">Марина</option>
-          <option value="Елена Янченко">Елена Янченко</option>
-          <option value="Таня">Таня</option>
-        </select>
+        <select class="auth-field" name="trainer" required>${trainerOptionsHTML('')}</select>
         <input class="auth-field" type="time" name="time" required>
         <input class="auth-field" type="number" name="dur" placeholder="Длительность (мин)" value="60" min="30" max="180" required>
         <input class="auth-field" type="text" name="price" placeholder="Стоимость" value="по абонементу" required>
@@ -1777,6 +2064,11 @@ function openAddClassModal(date) {
           <option value="Начинающий - базовый">Начинающий - базовый</option>
           <option value="Базовый">Базовый</option>
         </select>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--mid);margin-top:6px;">Повторение</div>
+        <select class="auth-field" name="repeat">
+          <option value="once">Только в этот день (${formatDate(date)})</option>
+          <option value="weekly">Каждую неделю (${DAY_NAMES[wd].toLowerCase()})</option>
+        </select>
         <div style="display:flex;gap:12px;margin-top:8px;">
           <button type="submit" class="auth-submit" style="flex:1;">Добавить</button>
           <button type="button" class="modal-cancel-btn" style="flex:1;" onclick="this.closest('.modal-overlay').remove()">Отмена</button>
@@ -1786,27 +2078,34 @@ function openAddClassModal(date) {
   `;
   document.body.appendChild(modal);
   modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
-  
+
   document.getElementById('add-class-form').addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const customClasses = getCustomClasses();
-    const newClass = {
-      id: 'custom-' + Date.now(),
-      name: formData.get('name'),
-      trainer: formData.get('trainer'),
-      time: formData.get('time'),
-      dur: parseInt(formData.get('dur')),
-      price: formData.get('price'),
-      dateKey: dateKey(date),
-      capacity: parseInt(formData.get('capacity')) || null,
-      level: formData.get('level'),
-      trainerTag: 'Дополнительное'
+    const f = new FormData(e.target);
+    const repeat = f.get('repeat');
+    const base = {
+      name: f.get('name'),
+      trainer: f.get('trainer'),
+      time: f.get('time'),
+      dur: parseInt(f.get('dur')),
+      price: f.get('price'),
+      capacity: parseInt(f.get('capacity')) || null,
+      level: f.get('level'),
     };
-    customClasses.push(newClass);
-    saveCustomClasses(customClasses);
+
+    if (repeat === 'weekly') {
+      // Постоянное занятие — добавляем в overrides.addWeekly
+      const ov = getSchedOverrides();
+      ov.addWeekly.push({ ...base, id: 'wk-' + Date.now(), day: wd, trainerTag: '' });
+      saveSchedOverrides(ov);
+    } else {
+      // Разовое занятие на конкретную дату
+      const customClasses = getCustomClasses();
+      customClasses.push({ ...base, id: 'custom-' + Date.now(), dateKey: dateKey(date), trainerTag: 'Дополнительное' });
+      saveCustomClasses(customClasses);
+    }
     modal.remove();
-    refreshScheduleViews();
+    if (typeof rerender === 'function') rerender(); else refreshScheduleViews();
   });
 }
 // ═══════════════════════════════════════════════════════
@@ -2483,6 +2782,10 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     });
 
     watch('customClasses', CUSTOM_CLASSES_KEY, () => {
+      if (typeof refreshScheduleViews === 'function') refreshScheduleViews();
+    });
+
+    watch('scheduleOverrides', SCHED_OVERRIDES_KEY, () => {
       if (typeof refreshScheduleViews === 'function') refreshScheduleViews();
     });
 
